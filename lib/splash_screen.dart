@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:tec/gen/assets.gen.dart';
 import 'package:tec/my_colors.dart';
 import 'main_screen.dart';
 
@@ -28,8 +27,8 @@ class _SplashScreenState extends State<SplashScreen> {
       child: Scaffold(
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children:  const [
-            // Image(image: Assets.images.logo,height: 64,),
+          children: const [
+            // Image(image: Assets.images.logo,height: 64,).image,
             Image(height: 64,image: AssetImage('assets/images/logo.png')),
             SizedBox(height: 30,),
             SpinKitFadingCube(

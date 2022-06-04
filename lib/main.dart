@@ -54,13 +54,13 @@ class MyApp extends StatelessWidget {
             fontFamily: 'dana',
             fontSize: 14,
             fontWeight: FontWeight.w300,
-            color: Colors.black
+            color: Colors.white
           ),
           headline3: TextStyle(
               fontFamily: 'dana',
               fontSize: 14,
               fontWeight: FontWeight.w700,
-              color: Colors.black
+              color: SolidColors.seeMore
           ),
           headline4: TextStyle(
             fontFamily: 'dana',
