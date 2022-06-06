@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:tec/my_colors.dart';
+import 'package:tec/view/register_intro.dart';
 import 'package:tec/view/splash_screen.dart';
 
 void main() {
@@ -71,7 +72,7 @@ class MyApp extends StatelessWidget {
         )
       ),
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+      home: RegisterIntro(),
     );
   }
 }
