@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:tec/component/my_colors.dart';
+import 'package:tec/component/my_strings.dart';
+import 'package:tec/gen/assets.gen.dart';
 import 'package:tec/view/home_screen.dart';
 import 'package:tec/view/profile_screen.dart';
+import 'package:share_plus/share_plus.dart';
 
 
-class MainScreen extends StatefulWidget {
+final GlobalKey<ScaffoldState> _key = GlobalKey();
 
+class MainScreen extends StatelessWidget {
+  RxInt selectedPageIndex = 0.obs;
 
-  @override
-  State<MainScreen> createState() => _MainScreenState();
-}
-
-class _MainScreenState extends State<MainScreen> {
-  var selectedPageIndex = 0;
+  MainScreen({super.key});
   @override
   Widget build(BuildContext context) {
     var textTheme = Theme.of(context).textTheme;
@@ -20,12 +21,18 @@ class _MainScreenState extends State<MainScreen> {
     double bodyMargin = size.width/10;
     return  SafeArea(
       child: Scaffold(
+        key: _key,
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           elevation: 0,
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              const Icon(Icons.menu,color: Colors.black,),
+              InkWell(
+                onTap: (){
+                  _key.currentState!.openDrawer();
+                },
+                child: const Icon(Icons.menu,color: Colors.black,)),
               // Image(image: Assets.images.logo),
               Image.asset('assets/images/logo.png',height: size.height/13.6,),
               const Icon(Icons.search,color: Colors.black,)
@@ -33,16 +40,79 @@ class _MainScreenState extends State<MainScreen> {
           ),
           backgroundColor: SolidColors.scaffoldBg,
         ),
+        drawer: Drawer(
+          backgroundColor: SolidColors.scaffoldBg,
+          child: Padding(
+            padding:  EdgeInsets.symmetric(horizontal: bodyMargin),
+            child: ListView(
+              children: [
+                DrawerHeader(
+                    child: Center(
+                      child: Image.asset(
+                        Assets.images.logo.path,
+                        scale: 3,
+                      ),
+                    )),
+                ListTile(
+                  title: Text(
+                    "پروفایل کاربری",
+                    style: textTheme.headline4,
+                  ),
+                  onTap: () {},
+                ),
+                const Divider(
+                  color: SolidColors.dividerColor,
+                ),
+                ListTile(
+                  title: Text(
+                    "درباره تک‌بلاگ",
+                    style: textTheme.headline4,
+                  ),
+                  onTap: () {},
+                ),
+                const Divider(
+                  color: SolidColors.dividerColor,
+                ),
+                ListTile(
+                  title: Text(
+                    "اشتراک گذاری تک بلاگ",
+                    style: textTheme.headline4,
+                  ),
+                  onTap: () async {
+                    await Share.share(MyStrings.shareText);
+                  },
+                ),
+                const Divider(
+                  color: SolidColors.dividerColor,
+                ),
+                ListTile(
+                  title: Text(
+                    "تک‌بلاگ در گیت هاب",
+                    style: textTheme.headline4,
+                  ),
+                  onTap: () {
+
+                  },
+                ),
+                const Divider(
+                  color: SolidColors.dividerColor,
+                ),
+              ],
+            ),
+          ),
+        ),
         body: Stack(
           children: [
             Center(
               child: Positioned.fill(
-                  child: IndexedStack(
-                    index: selectedPageIndex,
-                    children: [
-                      HomeScreen(size: size, textTheme: textTheme, bodyMargin: bodyMargin),
-                      ProfileScreen(size: size, textTheme: textTheme, bodyMargin: bodyMargin)
-                    ],
+                  child: Obx(
+                    ()=> IndexedStack(
+                      index: selectedPageIndex.value,
+                      children: [
+                        HomeScreen(size: size, textTheme: textTheme, bodyMargin: bodyMargin),
+                        ProfileScreen(size: size, textTheme: textTheme, bodyMargin: bodyMargin)
+                      ],
+                    ),
                   )
               ),
             ),
@@ -50,9 +120,7 @@ class _MainScreenState extends State<MainScreen> {
                 size: size,
                 bodyMargin: bodyMargin,
                 changeScreen: (int value){
-                  setState((){
-                    selectedPageIndex = value;
-                  });
+                  selectedPageIndex.value = value;
                 },
             )
           ],

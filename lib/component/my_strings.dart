@@ -14,6 +14,11 @@ class MyStrings{
 برای ارسال مطلب و پادکست باید حتما 
 ثبت نام کنی """;
 
+  static const String shareText = """
+من از تکبلاگ استفاده میکنم ، خیلی باحاله ، تو هم داشته باش\n
+www.sasansafari.com
+""";
+
 
 
 
