@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:tec/component/my_colors.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 
 class TecDivider extends StatelessWidget {
@@ -20,3 +23,14 @@ class TecDivider extends StatelessWidget {
     );
   }
 }
+
+
+myLaunchUrl(String url) async{
+  var uri = Uri.parse(url);
+  if(await canLaunchUrl(uri)){
+    await launchUrl(uri);
+  }else{
+    log("could not launch ${uri.toString()}");
+  }
+}
+
