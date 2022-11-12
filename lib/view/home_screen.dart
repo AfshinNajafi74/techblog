@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:tec/component/my_colors.dart';
 import 'package:tec/component/my_strings.dart';
+import 'package:tec/controller/home_screen_controller.dart';
 import 'package:tec/models/fake_data.dart';
 
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({
+   HomeScreen({
     Key? key,
     required this.size,
     required this.textTheme,
     required this.bodyMargin,
   }) : super(key: key);
+
+  final HomeScreenController homeScreenController = Get.put(HomeScreenController());
 
   final Size size;
   final TextTheme textTheme;
@@ -18,10 +22,12 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // TODO This is for  test i do not remember clean it
+    homeScreenController.getHomeItem();
     return SingleChildScrollView(
-      physics: BouncingScrollPhysics(),
+      physics: const BouncingScrollPhysics(),
       child: Padding(
-        padding: EdgeInsets.fromLTRB(0,16,0,0),
+        padding: const EdgeInsets.fromLTRB(0,16,0,0),
         child: Column(
           children: [
             HomePagePoster(size: size, textTheme: textTheme),
@@ -73,7 +79,7 @@ class HomePagePodcastList extends StatelessWidget {
                     width: size.width/2.4,
                     child: Container(
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(16)),
+                          borderRadius: const BorderRadius.all(Radius.circular(16)),
                           image: DecorationImage(
                               image: NetworkImage(podcastList[index].imageUrl),
                               fit: BoxFit.cover
@@ -184,7 +190,7 @@ class HomePageBlogList extends StatelessWidget {
                                 children: [
                                   Text(blogList[index].views,style: textTheme.subtitle1,),
                                   const SizedBox(width: 8,),
-                                  Icon(Icons.remove_red_eye_sharp,color: Colors.white,)
+                                  const Icon(Icons.remove_red_eye_sharp,color: Colors.white,)
                                 ],
                               ),
                             ],
@@ -271,7 +277,7 @@ class HomePageTagList extends StatelessWidget {
                   child: Row(
                     children: [
                       Image.asset('assets/icons/hashtagicon.png',height: 16,),
-                      SizedBox(width: 8,),
+                      const SizedBox(width: 8,),
                       Text(tagList[index].title,style: textTheme.headline2,)
                     ],
                   ),
@@ -302,7 +308,7 @@ class HomePagePoster extends StatelessWidget {
           width: size.width/1.25,
           height: size.height/4.2,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(16)),
+              borderRadius: const BorderRadius.all(Radius.circular(16)),
               image: DecorationImage(
                 // image: Image(image: Assets.images.logo,).image,
                   image: AssetImage(homePagePosterMap['imageAsset']),
@@ -331,8 +337,8 @@ class HomePagePoster extends StatelessWidget {
                   Row(
                     children: [
                       Text(homePagePosterMap['view'],style: textTheme.subtitle1,),
-                      SizedBox(width: 8,),
-                      Icon(Icons.remove_red_eye_sharp,color: Colors.white,size: 16,),
+                      const SizedBox(width: 8,),
+                      const Icon(Icons.remove_red_eye_sharp,color: Colors.white,size: 16,),
                     ],
                   )
                 ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tec/component/api_constant.dart';
 import 'package:tec/component/my_colors.dart';
 import 'package:tec/component/my_component.dart';
 import 'package:tec/component/my_strings.dart';
@@ -18,7 +19,6 @@ class MainScreen extends StatelessWidget {
   MainScreen({super.key});
   @override
   Widget build(BuildContext context) {
-    DioService().getMethod("https://techblog.sasansafari.com/Techblog/api/home/?command=index");
     var textTheme = Theme.of(context).textTheme;
     var size = MediaQuery.of(context).size;
     double bodyMargin = size.width/10;
