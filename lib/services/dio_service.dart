@@ -7,7 +7,7 @@ class DioService {
   Future<dynamic> getMethod(String url) async{
     _dio.options.headers['content-Type'] = 'application/json';
     return await _dio.get(
-      "",
+        url,
       options: Options(responseType: ResponseType.json,method: 'GET')
     ).then((response) {
       log(response.toString());
