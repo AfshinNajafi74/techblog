@@ -34,7 +34,7 @@ class HomeScreen extends StatelessWidget {
             children: [
               poster(),
               const SizedBox(height: 16,),
-              HomePageTagList(bodyMargin: bodyMargin, textTheme: textTheme),
+              tags(),
               const SizedBox(height: 32,),
               SeeMoreBlog(bodyMargin: bodyMargin, textTheme: textTheme),
               topVisited(),
@@ -232,6 +232,22 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
+  Widget tags(){
+    return SizedBox(
+      height: 60,
+      child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: tagList.length,
+          itemBuilder: (context,index){
+            return Padding(
+              padding: EdgeInsets.fromLTRB(0,8,index == 0 ? bodyMargin : 15,8),
+              child: MainTags(textTheme: textTheme, index: index),
+            );
+          }
+      ),
+    );
+  }
+
 }
 
 class SeeMorePodcast extends StatelessWidget {
@@ -284,51 +300,5 @@ class SeeMoreBlog extends StatelessWidget {
   }
 }
 
-class HomePageTagList extends StatelessWidget {
-  const HomePageTagList({
-    Key? key,
-    required this.bodyMargin,
-    required this.textTheme,
-  }) : super(key: key);
 
-  final double bodyMargin;
-  final TextTheme textTheme;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 60,
-      child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: tagList.length,
-          itemBuilder: (context,index){
-            return Padding(
-              padding: EdgeInsets.fromLTRB(0,8,index == 0 ? bodyMargin : 15,8),
-              child: Container(
-                height: 60,
-                decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(24)),
-                    gradient: LinearGradient(
-                        colors: GradiantColors.tags,
-                        begin: Alignment.centerRight,
-                        end: Alignment.centerLeft
-                    )
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(16,8,8,8),
-                  child: Row(
-                    children: [
-                      Image.asset('assets/icons/hashtagicon.png',height: 16,),
-                      const SizedBox(width: 8,),
-                      Text(tagList[index].title,style: textTheme.headline2,)
-                    ],
-                  ),
-                ),
-              ),
-            );
-          }
-      ),
-    );
-  }
-}
 
