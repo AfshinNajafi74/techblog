@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:get/get.dart';
 import 'package:tec/component/my_colors.dart';
 import 'package:tec/view/main_screen.dart';
 
@@ -20,15 +21,8 @@ class MyApp extends StatelessWidget {
   // This widget is teh root of my application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      localizationsDelegates: const [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate
-      ],
-      supportedLocales: const [
-        Locale('fa',''),
-      ],
+    return GetMaterialApp(
+      locale: const Locale('fa'),
       theme: ThemeData(
         fontFamily: 'dana',
         brightness: Brightness.light,

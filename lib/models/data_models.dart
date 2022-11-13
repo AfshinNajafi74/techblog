@@ -19,14 +19,14 @@ class BlogModel{
     required this.writerImageUrl, required this.date, required this.content, required this.views});
 }
 
-class PodcastModel {
+class PodcastModelss {
 
   int id;
   String imageUrl;
   String title;
   String writer;
 
-  PodcastModel({
+  PodcastModelss({
     required this.id,
     required this.imageUrl,
     required this.title,

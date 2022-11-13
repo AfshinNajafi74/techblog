@@ -33,11 +33,11 @@ class HomeScreen extends StatelessWidget {
             HomePageTagList(bodyMargin: bodyMargin, textTheme: textTheme),
             const SizedBox(height: 32,),
             SeeMoreBlog(bodyMargin: bodyMargin, textTheme: textTheme),
-            TopVisited(),
+            topVisited(),
             const SizedBox(height: 32,),
             SeeMorePodcast(bodyMargin: bodyMargin, textTheme: textTheme),
             // see more
-            HomePagePodcastList(size: size, bodyMargin: bodyMargin, textTheme: textTheme),
+            topPodcasts(),
             const SizedBox(height: 65,),
           ],
         ),
@@ -45,7 +45,7 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget TopVisited(){
+  Widget topVisited(){
     return SizedBox(
       height: size.height/3.5,
       child: Obx(
@@ -120,62 +120,51 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
-}
 
-class HomePagePodcastList extends StatelessWidget {
-  const HomePagePodcastList({
-    Key? key,
-    required this.size,
-    required this.bodyMargin,
-    required this.textTheme,
-  }) : super(key: key);
-
-  final Size size;
-  final double bodyMargin;
-  final TextTheme textTheme;
-
-  @override
-  Widget build(BuildContext context) {
+  Widget topPodcasts(){
     return SizedBox(
       height: size.height/3.5,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: podcastList.getRange(0, 5).length,
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: EdgeInsets.only(right: index == 0 ? bodyMargin : 15),
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    height: size.height/5.3,
-                    width: size.width/2.4,
-                    child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.all(Radius.circular(16)),
-                          image: DecorationImage(
-                              image: NetworkImage(podcastList[index].imageUrl),
-                              fit: BoxFit.cover
-                          )
+      child: Obx(
+        ()=> ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: homeScreenController.topPodcast.length,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: EdgeInsets.only(right: index == 0 ? bodyMargin : 15),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SizedBox(
+                      height: size.height/5.3,
+                      width: size.width/2.4,
+                      child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.all(Radius.circular(16)),
+                            image: DecorationImage(
+                                image: NetworkImage(homeScreenController.topPodcast[index].poster!),
+                                fit: BoxFit.cover
+                            )
+                        ),
                       ),
                     ),
                   ),
-                ),
-                SizedBox(
-                width: size.width / 2.4,
-                child: Text(
-                podcastList[index].title,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 2,
-                )),
-              ],
-            ),
-          );
-        },
+                  SizedBox(
+                      width: size.width / 2.4,
+                      child: Text(
+                        homeScreenController.topPodcast[index].title!,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
+                      )),
+                ],
+              ),
+            );
+          },
+        ),
       ),
     );
   }
+
 }
 
 class SeeMorePodcast extends StatelessWidget {
