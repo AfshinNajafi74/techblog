@@ -1,4 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:tec/component/my_colors.dart';
 import 'package:tec/component/my_strings.dart';
@@ -24,22 +26,24 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(0,16,0,0),
-        child: Column(
-          children: [
-            HomePagePoster(size: size, textTheme: textTheme),
-            const SizedBox(height: 16,),
-            HomePageTagList(bodyMargin: bodyMargin, textTheme: textTheme),
-            const SizedBox(height: 32,),
-            SeeMoreBlog(bodyMargin: bodyMargin, textTheme: textTheme),
-            topVisited(),
-            const SizedBox(height: 32,),
-            SeeMorePodcast(bodyMargin: bodyMargin, textTheme: textTheme),
-            // see more
-            topPodcasts(),
-            const SizedBox(height: 65,),
-          ],
+      child: Obx(
+         () => Padding(
+          padding: const EdgeInsets.fromLTRB(0,16,0,0),
+          child: Column(
+            children: [
+              HomePagePoster(size: size, textTheme: textTheme),
+              const SizedBox(height: 16,),
+              HomePageTagList(bodyMargin: bodyMargin, textTheme: textTheme),
+              const SizedBox(height: 32,),
+              SeeMoreBlog(bodyMargin: bodyMargin, textTheme: textTheme),
+              topVisited(),
+              const SizedBox(height: 32,),
+              SeeMorePodcast(bodyMargin: bodyMargin, textTheme: textTheme),
+              // see more
+              topPodcasts(),
+              const SizedBox(height: 65,),
+            ],
+          ),
         ),
       ),
     );
@@ -65,22 +69,20 @@ class HomeScreen extends StatelessWidget {
                       width: size.width/2.4,
                       child: Stack(
                         children: [
-                          Container(
-                            decoration: BoxDecoration(
-                                borderRadius: const BorderRadius.all(Radius.circular(16)),
-                                image: DecorationImage(
-                                    image: NetworkImage(homeScreenController.topVisitedList[index].image!),
-                                    fit: BoxFit.cover
-                                )
-                            ),
-                            foregroundDecoration: const BoxDecoration(
-                                borderRadius: BorderRadius.all(Radius.circular(16)),
-                                gradient: LinearGradient(
-                                    colors: GradiantColors.blogPost,
-                                    begin: Alignment.centerRight,
-                                    end: Alignment.topCenter
-                                )
-                            ),
+                          CachedNetworkImage(
+                            imageUrl: homeScreenController.topVisitedList[index].image!,
+                            imageBuilder: (context, imageProvider) {
+                              return Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(16),
+                                  image: DecorationImage(
+                                     image: imageProvider
+                                  )
+                                ),
+                              );
+                            },
+                            placeholder: (context, url) => SpinKitFadingCube(color: SolidColors.primaryColor,size: 32,),
+                            errorWidget: (context, url, error) => Icon(Icons.image_not_supported_outlined,size: 50,color: Colors.grey,),
                           ),
                           Positioned(
                             right: 0,
@@ -138,14 +140,21 @@ class HomeScreen extends StatelessWidget {
                     child: SizedBox(
                       height: size.height/5.3,
                       width: size.width/2.4,
-                      child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: const BorderRadius.all(Radius.circular(16)),
-                            image: DecorationImage(
-                                image: NetworkImage(homeScreenController.topPodcast[index].poster!),
+                      child: CachedNetworkImage(
+                        imageUrl: homeScreenController.topPodcast[index].poster!,
+                        imageBuilder: (context, imageProvider) {
+                          return Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(16),
+                              image: DecorationImage(
+                                image: imageProvider,
                                 fit: BoxFit.cover
-                            )
-                        ),
+                              )
+                            ),
+                          );
+                        },
+                        placeholder: (context, url) => SpinKitFadingCube(color: SolidColors.primaryColor,size: 32,),
+                        errorWidget: (context, url, error) => Icon(Icons.image_not_supported_outlined,size: 50,color: Colors.grey,),
                       ),
                     ),
                   ),
