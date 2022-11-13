@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:tec/component/my_colors.dart';
+import 'package:tec/component/text_style.dart';
 import 'package:tec/controller/home_screen_controller.dart';
 import 'package:tec/gen/assets.gen.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -93,5 +94,37 @@ class MainTags extends StatelessWidget {
     );
   }
 }
+
+PreferredSize appBar(String title) {
+  return PreferredSize(
+    preferredSize: Size.fromHeight(80),
+    child: Padding(
+      padding: const EdgeInsets.all(12),
+      child: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(left: 16.0),
+            child: Center(child: Text(title,style: appBarTextStyle,)),
+          )
+        ],
+        leading: Padding(
+          padding:const EdgeInsets.only(right: 16.0),
+          child: Container(
+            height: 40,
+            width: 40,
+            decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: SolidColors.primaryColor.withAlpha(100)
+            ),
+            child: Icon(Icons.keyboard_arrow_right_rounded),
+          ),
+        ),
+      ),
+    ),
+  );
+}
+
 
 
