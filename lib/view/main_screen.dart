@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tec/component/api_constant.dart';
 import 'package:tec/component/my_colors.dart';
 import 'package:tec/component/my_component.dart';
 import 'package:tec/component/my_strings.dart';
 import 'package:tec/gen/assets.gen.dart';
-import 'package:tec/services/dio_service.dart';
 import 'package:tec/view/home_screen.dart';
 import 'package:tec/view/profile_screen.dart';
 import 'package:share_plus/share_plus.dart';
@@ -106,18 +104,16 @@ class MainScreen extends StatelessWidget {
         ),
         body: Stack(
           children: [
-            Center(
-              child: Positioned.fill(
-                  child: Obx(
-                    ()=> IndexedStack(
-                      index: selectedPageIndex.value,
-                      children: [
-                        HomeScreen(size: size, textTheme: textTheme, bodyMargin: bodyMargin),
-                        ProfileScreen(size: size, textTheme: textTheme, bodyMargin: bodyMargin)
-                      ],
-                    ),
-                  )
-              ),
+            Positioned.fill(
+                child: Obx(
+                  ()=> IndexedStack(
+                    index: selectedPageIndex.value,
+                    children: [
+                      HomeScreen(size: size, textTheme: textTheme, bodyMargin: bodyMargin),
+                      ProfileScreen(size: size, textTheme: textTheme, bodyMargin: bodyMargin)
+                    ],
+                  ),
+                )
             ),
             BottomNavigation(
                 size: size,

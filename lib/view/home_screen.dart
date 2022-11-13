@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:tec/component/my_colors.dart';
+import 'package:tec/component/my_component.dart';
 import 'package:tec/component/my_strings.dart';
 import 'package:tec/controller/home_screen_controller.dart';
 import 'package:tec/models/fake_data.dart';
@@ -29,9 +30,9 @@ class HomeScreen extends StatelessWidget {
       child: Obx(
          () => Padding(
           padding: const EdgeInsets.fromLTRB(0,16,0,0),
-          child: Column(
+          child: homeScreenController.loading.value == false ? Column(
             children: [
-              HomePagePoster(size: size, textTheme: textTheme),
+              poster(),
               const SizedBox(height: 16,),
               HomePageTagList(bodyMargin: bodyMargin, textTheme: textTheme),
               const SizedBox(height: 32,),
@@ -43,7 +44,7 @@ class HomeScreen extends StatelessWidget {
               topPodcasts(),
               const SizedBox(height: 65,),
             ],
-          ),
+          ) : const Center(child: Loading(),),
         ),
       ),
     );
@@ -81,8 +82,8 @@ class HomeScreen extends StatelessWidget {
                                 ),
                               );
                             },
-                            placeholder: (context, url) => SpinKitFadingCube(color: SolidColors.primaryColor,size: 32,),
-                            errorWidget: (context, url, error) => Icon(Icons.image_not_supported_outlined,size: 50,color: Colors.grey,),
+                            placeholder: (context, url) => Loading(),
+                            errorWidget: (context, url, error) => const Icon(Icons.image_not_supported_outlined,size: 50,color: Colors.grey,),
                           ),
                           Positioned(
                             right: 0,
@@ -153,8 +154,8 @@ class HomeScreen extends StatelessWidget {
                             ),
                           );
                         },
-                        placeholder: (context, url) => SpinKitFadingCube(color: SolidColors.primaryColor,size: 32,),
-                        errorWidget: (context, url, error) => Icon(Icons.image_not_supported_outlined,size: 50,color: Colors.grey,),
+                        placeholder: (context, url) => const Loading(),
+                        errorWidget: (context, url, error) => const Icon(Icons.image_not_supported_outlined,size: 50,color: Colors.grey,),
                       ),
                     ),
                   ),
@@ -171,6 +172,63 @@ class HomeScreen extends StatelessWidget {
           },
         ),
       ),
+    );
+  }
+
+  Widget poster(){
+    return Stack(
+      children: [
+        Container(
+          width: size.width/1.25,
+          height: size.height/4.2,
+          foregroundDecoration: const BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(16)),
+              gradient: LinearGradient(
+                  colors: GradiantColors.homePosterCoverGradiant,
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter
+              )
+          ),
+          child: CachedNetworkImage(
+            imageUrl: homeScreenController.poster.value.image!,
+            imageBuilder: ((context, imageProvider) => Container(
+              decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.all(Radius.circular(16)),
+                  image: DecorationImage(
+                      image: imageProvider, fit: BoxFit.cover)),
+            )),
+            placeholder: ((context, url) => Loading()),
+            errorWidget: ((context, url, error) => const Icon(
+              Icons.image_not_supported_outlined,
+              size: 50,
+              color: Colors.grey,
+            )),
+          ),
+        ),
+        Positioned(
+          bottom: 8,
+          left: 0,
+          right: 0,
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Text(homePagePosterMap['writer'] + ' - ' + homePagePosterMap['date'],style: textTheme.subtitle1,),
+                  Row(
+                    children: [
+                      Text(homePagePosterMap['view'],style: textTheme.subtitle1,),
+                      const SizedBox(width: 8,),
+                      const Icon(Icons.remove_red_eye_sharp,color: Colors.white,size: 16,),
+                    ],
+                  )
+                ],
+              ),
+              Text(homeScreenController.poster.value.title!,style: textTheme.headline1,),
+            ],
+          ),
+        ),
+      ],
     );
   }
 
@@ -274,64 +332,3 @@ class HomePageTagList extends StatelessWidget {
   }
 }
 
-class HomePagePoster extends StatelessWidget {
-  const HomePagePoster({
-    Key? key,
-    required this.size,
-    required this.textTheme,
-  }) : super(key: key);
-
-  final Size size;
-  final TextTheme textTheme;
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          width: size.width/1.25,
-          height: size.height/4.2,
-          decoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(Radius.circular(16)),
-              image: DecorationImage(
-                // image: Image(image: Assets.images.logo,).image,
-                  image: AssetImage(homePagePosterMap['imageAsset']),
-                  fit: BoxFit.cover
-              )
-          ),
-          foregroundDecoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(16)),
-              gradient: LinearGradient(
-                  colors: GradiantColors.homePosterCoverGradiant,
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter
-              )
-          ),
-        ),
-        Positioned(
-          bottom: 8,
-          left: 0,
-          right: 0,
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text(homePagePosterMap['writer'] + ' - ' + homePagePosterMap['date'],style: textTheme.subtitle1,),
-                  Row(
-                    children: [
-                      Text(homePagePosterMap['view'],style: textTheme.subtitle1,),
-                      const SizedBox(width: 8,),
-                      const Icon(Icons.remove_red_eye_sharp,color: Colors.white,size: 16,),
-                    ],
-                  )
-                ],
-              ),
-              Text('دوازده قدم برنامه نویسی یک دوره ی . . . س',style: textTheme.headline1,),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-}
