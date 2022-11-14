@@ -116,7 +116,7 @@ PreferredSize appBar(String title) {
             width: 40,
             decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: SolidColors.primaryColor.withAlpha(100)
+                color: SolidColors.primaryColor.withBlue(100)
             ),
             child: Icon(Icons.keyboard_arrow_right_rounded),
           ),

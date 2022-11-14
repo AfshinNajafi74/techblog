@@ -9,6 +9,7 @@ class ArticleModel {
   String? author;
   String? view;
   String? status;
+  // String? isFavorite;
   String? createdAt;
 
   ArticleModel({required this.id, required this.title, required this.image, required this.catId, required this.catName,
