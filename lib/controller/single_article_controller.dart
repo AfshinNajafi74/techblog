@@ -14,7 +14,7 @@ class SingleArticleController extends GetxController{
 
   getArticleInfo() async{
     loading.value = true;
-    // TODO get userid from get storage getArticleList + userId
+    // https://techblog.sasansafari.com/Techblog/api/article/get.php?command=info&id=1&user_id=1
     var response = await DioService().getMethod(ApiConstant.getArticleList);
     if(response.statusCode == 200){
       // response.data.forEach((element) {
