@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tec/component/my_component.dart';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:tec/controller/list_article_controller.dart';
 import 'package:tec/controller/single_article_controller.dart';
 import 'package:tec/view/single_screen.dart';
-
-
 
 class ArticleListScreen extends StatelessWidget {
   ArticleListScreen({Key? key}) : super(key: key);
@@ -30,8 +27,8 @@ class ArticleListScreen extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return GestureDetector(
                     onTap: () {
-                      singleArticleController.id.value = int.parse(listArticleController.articleList[index].id!.toString());
-                      Get.to(const SingleScreen(),);
+                      singleArticleController.id.value = int.parse(listArticleController.articleList[index].id!);
+                      Get.to(SingleScreen(),);
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),

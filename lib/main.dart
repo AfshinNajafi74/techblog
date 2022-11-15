@@ -62,7 +62,12 @@ class MyApp extends StatelessWidget {
             fontSize: 14,
             color: Colors.black,
             fontWeight: FontWeight.w700
-          )
+          ),
+          headline5: TextStyle(
+              fontFamily: 'dana',
+              fontSize: 14,
+              color: SolidColors.hintText,
+              fontWeight: FontWeight.w700),
         )
       ),
       debugShowCheckedModeBanner: false,

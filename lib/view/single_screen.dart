@@ -1,91 +1,116 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
 import 'package:tec/component/my_colors.dart';
 import 'package:tec/component/my_component.dart';
+import 'package:tec/controller/single_article_controller.dart';
 
 import '../gen/assets.gen.dart';
 
-class SingleScreen extends StatelessWidget {
-  const SingleScreen({Key? key}) : super(key: key);
+class SingleScreen extends StatefulWidget {
+  SingleScreen({Key? key}) : super(key: key);
+
+  @override
+  State<SingleScreen> createState() => _SingleScreenState();
+}
+
+class _SingleScreenState extends State<SingleScreen> {
+  final SingleArticleController singleArticleController = Get.put(SingleArticleController());
+
+  @override
+  void initState() {
+    super.initState();
+    singleArticleController.getArticleInfo();
+  }
 
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
     return SafeArea(
       child: Scaffold(
-        body: Column(
-          children: [
-            Stack(
+        body: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: Obx(
+            () => Column(
               children: [
-                CachedNetworkImage(
-                  imageUrl: "",
-                  imageBuilder: (context, imageProvider) {
-                    return Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16),
-                          image: DecorationImage(
-                              image: imageProvider,
-                              fit: BoxFit.cover
+                Stack(
+                  children: [
+                    CachedNetworkImage(
+                      imageUrl: singleArticleController.articleInfoModel.value.image!,
+                      imageBuilder: (context, imageProvider) {
+                        return Image(image: imageProvider,);
+                      },
+                      placeholder: (context, url) => const Loading(),
+                      errorWidget: (context, url, error) {
+                        return Image.asset("assets/images/single_place_holder.jpg");
+                      },
+                    ),
+                    Positioned(
+                      child: Container(
+                        height: 60,
+                        decoration: const BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: GradiantColors.singleAppBarGradiant,
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter
                           )
-                      ),
-                    );
-                  },
-                  placeholder: (context, url) => const Loading(),
-                  errorWidget: (context, url, error) {
-                    return Image.asset("assets/images/single_place_holder.jpg");
-                  },
-                ),
-                Positioned(
-                  child: Container(
-                    height: 60,
-                    decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: GradiantColors.singleAppBarGradiant,
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: const [
+                            SizedBox(width: 20,),
+                            Icon(Icons.arrow_back,color: Colors.white,size: 24,),
+                            Expanded(child: SizedBox()),
+                            Icon(Icons.bookmark_border_rounded,color: Colors.white,size: 24,),
+                            SizedBox(width: 20,),
+                            Icon(Icons.share,color: Colors.white,size: 24,),
+                            SizedBox(width: 20,),
+                          ],
+                        ),
                       )
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        SizedBox(width: 20,),
-                        Icon(Icons.arrow_back,color: Colors.white,size: 24,),
-                        Expanded(child: SizedBox()),
-                        Icon(Icons.bookmark_border_rounded,color: Colors.white,size: 24,),
-                        SizedBox(width: 20,),
-                        Icon(Icons.share,color: Colors.white,size: 24,),
-                        SizedBox(width: 20,),
-                      ],
-                    ),
-                  )
-                )
+                    )
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(singleArticleController.articleInfoModel.value.title!,maxLines: 2,style: textTheme.titleLarge,),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      Image(image: Image.asset(Assets.images.profileAvatar.path,).image,height: 50,),
+                      const SizedBox(width: 16,),
+                      Text(singleArticleController.articleInfoModel.value.author!,maxLines: 2,style: textTheme.headline4,),
+                      const SizedBox(width: 16,),
+                      Text(singleArticleController.articleInfoModel.value.createdAt!,maxLines: 2,style: textTheme.caption,)
+
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: HtmlWidget(
+                    singleArticleController.articleInfoModel.value.content!,
+                    // textStyle: textTheme.headline5,
+                    enableCaching: true,
+                    onLoadingBuilder: ((context, element, loadingProgress) => const Loading()),
+                  ),
+                ),
+                const SizedBox(height: 25,),
+                tags(textTheme),
+                const SizedBox(height: 25,),
+                simmilar(textTheme)
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text("data",maxLines: 2,style: textTheme.titleLarge,),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children: [
-                  Image(image: Image.asset(Assets.images.profileAvatar.path,).image,height: 50,),
-                  SizedBox(width: 16,),
-                  Text("فاطمه امیری",maxLines: 2,style: textTheme.headline4,),
-                  SizedBox(width: 16,),
-                  Text("تاریخ",maxLines: 2,style: textTheme.caption,)
-
-                ],
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );
   }
 
-  Widget tags(textheme) {
+  Widget tags(textTheme) {
     return SizedBox(
       height: 35,
       child: ListView.builder(
@@ -103,7 +128,7 @@ class SingleScreen extends StatelessWidget {
                     padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
                     child: Text(
                       '',
-                      style: textheme.headline2,
+                      style: textTheme.headline2,
                     )),
               ),
             );
@@ -111,7 +136,7 @@ class SingleScreen extends StatelessWidget {
     );
   }
 
-  Widget simmilar(textheme) {
+  Widget simmilar(textTheme) {
     return SizedBox(
       height: Get.height / 3.5,
       child: ListView.builder(
@@ -167,13 +192,13 @@ class SingleScreen extends StatelessWidget {
                               children: [
                                 Text(
                                   "",
-                                  style: textheme.subtitle1,
+                                  style: textTheme.subtitle1,
                                 ),
                                 Row(
                                   children: [
                                     Text(
                                       "",
-                                      style: textheme.subtitle1,
+                                      style: textTheme.subtitle1,
                                     ),
                                     const SizedBox(
                                       width: 8,
@@ -194,7 +219,7 @@ class SingleScreen extends StatelessWidget {
                   ),
                   SizedBox(
                       width: Get.width / 2.4,
-                      child: Text(
+                      child: const Text(
                         "singleArcticleController.releatedList[index].title!",
                         overflow: TextOverflow.ellipsis,
                         maxLines: 2,
