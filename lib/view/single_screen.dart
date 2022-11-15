@@ -11,7 +11,7 @@ import 'package:tec/view/article_list_screen.dart';
 import '../gen/assets.gen.dart';
 
 class SingleScreen extends StatefulWidget {
-  SingleScreen({Key? key}) : super(key: key);
+  const SingleScreen({Key? key}) : super(key: key);
 
   @override
   State<SingleScreen> createState() => _SingleScreenState();
@@ -34,7 +34,7 @@ class _SingleScreenState extends State<SingleScreen> {
         body: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           child: Obx(
-            () => Column(
+            () => singleArticleController.articleInfoModel.value.title == null ? SizedBox(height: Get.height,  child: const Loading()) : Column(
               children: [
                 Stack(
                   children: [
