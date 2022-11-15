@@ -1,13 +1,16 @@
 import 'package:get/get.dart';
 import 'package:tec/component/api_constant.dart';
 import 'package:tec/models/article_info_model.dart';
+import 'package:tec/models/article_model.dart';
+import 'package:tec/models/tags_model.dart';
 import 'package:tec/services/dio_service.dart';
 
 class SingleArticleController extends GetxController{
   RxBool loading = false.obs;
   RxInt id = RxInt(0);
   Rx<ArticleInfoModel> articleInfoModel = ArticleInfoModel().obs;
-
+  RxList<ArticleModel> relatedList = RxList();
+  RxList<TagsModel> tagList = RxList();
   @override
   void onInit() {
     super.onInit();
@@ -22,6 +25,17 @@ class SingleArticleController extends GetxController{
     var response = await DioService().getMethod("${ApiConstant.baseUrl}article/get.php?command=info&id=$id&user_id=$userId");
     if(response.statusCode == 200){
       articleInfoModel.value = ArticleInfoModel.fromJson(response.data);
+
+      relatedList.clear();
+      response.data["related"].forEach((element){
+        relatedList.add(ArticleModel.fromJson(element));
+      });
+
+      tagList.clear();
+      response.data["tags"].forEach((element) {
+        tagList.add(TagsModel.fromJson(element));
+      });
+
       loading.value = true;
     }
   }

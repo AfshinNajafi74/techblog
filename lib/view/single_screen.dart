@@ -4,7 +4,9 @@ import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
 import 'package:tec/component/my_colors.dart';
 import 'package:tec/component/my_component.dart';
+import 'package:tec/controller/list_article_controller.dart';
 import 'package:tec/controller/single_article_controller.dart';
+import 'package:tec/view/article_list_screen.dart';
 
 import '../gen/assets.gen.dart';
 
@@ -115,21 +117,28 @@ class _SingleScreenState extends State<SingleScreen> {
       height: 35,
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
-          itemCount: 2,
+          itemCount: singleArticleController.tagList.length,
           itemBuilder: ((context, index) {
-            return Padding(
-              padding: const EdgeInsets.only(left: 8),
-              child: Container(
-                height: 30,
-                decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(24)),
-                    color: Colors.grey),
-                child: Padding(
-                    padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
-                    child: Text(
-                      '',
-                      style: textTheme.headline2,
-                    )),
+            return GestureDetector(
+              onTap: () async {
+                String id = singleArticleController.tagList[index].id!;
+                await Get.find<ListArticleController>().getArticleListWithTagsId(id);
+                Get.to(ArticleListScreen());
+              },
+              child: Padding(
+                padding: const EdgeInsets.only(left: 8),
+                child: Container(
+                  height: 30,
+                  decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(24)),
+                      color: Colors.grey),
+                  child: Padding(
+                      padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
+                      child: Text(
+                        singleArticleController.tagList[index].title!,
+                        style: textTheme.headline2,
+                      )),
+                ),
               ),
             );
           })),
@@ -140,7 +149,7 @@ class _SingleScreenState extends State<SingleScreen> {
     return SizedBox(
       height: Get.height / 3.5,
       child: ListView.builder(
-          itemCount: 9,
+          itemCount: singleArticleController.relatedList.length,
           scrollDirection: Axis.horizontal,
           itemBuilder: ((context, index) {
             //blog item
@@ -157,7 +166,7 @@ class _SingleScreenState extends State<SingleScreen> {
                       child: Stack(
                         children: [
                           CachedNetworkImage(
-                            imageUrl:  "",
+                            imageUrl:  singleArticleController.relatedList[index].image!,
                             imageBuilder: ((context, imageProvider) =>
                                 Container(
                                   decoration: BoxDecoration(
@@ -191,13 +200,13 @@ class _SingleScreenState extends State<SingleScreen> {
                               MainAxisAlignment.spaceAround,
                               children: [
                                 Text(
-                                  "",
+                                  singleArticleController.relatedList[index].author!,
                                   style: textTheme.subtitle1,
                                 ),
                                 Row(
                                   children: [
                                     Text(
-                                      "",
+                                      singleArticleController.relatedList[index].view!,
                                       style: textTheme.subtitle1,
                                     ),
                                     const SizedBox(
@@ -219,8 +228,8 @@ class _SingleScreenState extends State<SingleScreen> {
                   ),
                   SizedBox(
                       width: Get.width / 2.4,
-                      child: const Text(
-                        "singleArcticleController.releatedList[index].title!",
+                      child: Text(
+                        singleArticleController.relatedList[index].title!,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 2,
                       ))
