@@ -6,14 +6,16 @@ import 'package:tec/view/article_list_screen.dart';
 import 'package:tec/view/main_screen/main_screen.dart';
 import 'package:tec/view/single_screen.dart';
 import 'package:tec/view/splash_screen.dart';
+import 'package:get_storage/get_storage.dart';
 
-void main() {
+void main() async {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: SolidColors.statusBarColor,
       statusBarIconBrightness: Brightness.dark,
     systemNavigationBarColor: SolidColors.systemNavigationBarColor,
     systemNavigationBarIconBrightness: Brightness.dark
   ));
+  await GetStorage.init();
   runApp(const MyApp());
 }
 
