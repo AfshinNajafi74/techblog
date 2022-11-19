@@ -13,6 +13,8 @@ import '../gen/assets.gen.dart';
 class SingleScreen extends StatelessWidget {
   final SingleArticleController singleArticleController = Get.put(SingleArticleController());
 
+  SingleScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;

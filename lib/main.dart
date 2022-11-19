@@ -1,14 +1,14 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:tec/component/my_colors.dart';
-import 'package:tec/view/article_list_screen.dart';
-import 'package:tec/view/main_screen/main_screen.dart';
-import 'package:tec/view/single_screen.dart';
 import 'package:tec/view/splash_screen.dart';
 import 'package:get_storage/get_storage.dart';
+import 'my_http_overrides.dart';
 
 void main() async {
+  HttpOverrides.global = MyHttpOverrides();
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: SolidColors.statusBarColor,
       statusBarIconBrightness: Brightness.dark,
@@ -74,7 +74,7 @@ class MyApp extends StatelessWidget {
         )
       ),
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+      home: const SplashScreen(),
     );
   }
 }

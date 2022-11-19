@@ -9,6 +9,8 @@ import 'package:tec/controller/register_controller.dart';
 class RegisterIntro extends StatelessWidget{
 
   final RegisterController  registerController = Get.put(RegisterController());
+
+  RegisterIntro({super.key});
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
@@ -21,22 +23,21 @@ class RegisterIntro extends StatelessWidget{
               children: [
                 SvgPicture.asset('assets/images/tcbot.svg',height: 100,),
                 Padding(
-                  padding: EdgeInsets.only(top: 16),
+                  padding: const EdgeInsets.only(top: 16),
                   child: RichText(
                     textAlign: TextAlign.center,
                       text: TextSpan(
-                        text: MyStrings.welcom,
+                        text: MyStrings.welcome,
                         style: textTheme.headline4
                       )
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: 32),
+                  padding: const EdgeInsets.only(top: 32),
                   child: ElevatedButton(
                       onPressed: (){
                         _showEmailBottomSheet(context, size, textTheme);
                       },
-                      child: Text('بزن بریم',),
                     style: ButtonStyle(
                       textStyle: MaterialStateProperty.resolveWith((states) {
                         if(states.contains(MaterialState.pressed)){
@@ -51,6 +52,7 @@ class RegisterIntro extends StatelessWidget{
                         return SolidColors.primaryColor;
                       })
                     ),
+                      child: const Text('بزن بریم',),
                   ),
                 )
               ],

@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tec/component/api_constant.dart';
@@ -22,7 +21,7 @@ class RegisterController extends GetxController{
     var response = await DioService().postMethod(map, ApiConstant.postRegister);
     email = emailTextEditingController.text;
     user_id = response.data["user_id"];
-    print(response);
+    debugPrint(response.toString());
   }
 
   verify() async {
@@ -32,16 +31,16 @@ class RegisterController extends GetxController{
       "code" : activeCodeTextEditingController.text,
       "command" : "verify"
     };
-    print(map);
+    debugPrint(map.toString());
     var response = await DioService().postMethod(map, ApiConstant.postRegister);
-    print(response.data);
+    debugPrint(response.data.toString());
 
     if(response.data["response"] == "verify"){
       var box = GetStorage();
       box.write(token, response.data["token"]);
       box.write(userId, response.data["user_id"]);
-      print("READ :::: ${box.read(token)}");
-      print("READ :::: ${box.read(userId)}");
+      debugPrint("READ :::: ${box.read(token)}");
+      debugPrint("READ :::: ${box.read(userId)}");
       Get.to(MainScreen());
     }else{
       log('error == error ');

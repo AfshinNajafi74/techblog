@@ -22,9 +22,3 @@ class PodcastModel {
 
 }
 
-// "id": "5",
-// "title": "تکچی - قسمت 70 گوگل مورد تایید ما نیست!!!!",
-// "poster": "/Techblog/assets/upload/images/podcast/images/tech_chi.jpg",
-// "publisher": "سینا جعفری",
-// "view": "96",
-// "created_at": "۱۴۰۱/۲/۱۶"

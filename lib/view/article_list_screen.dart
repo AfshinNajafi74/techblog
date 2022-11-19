@@ -4,7 +4,6 @@ import 'package:tec/component/my_component.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:tec/controller/list_article_controller.dart';
 import 'package:tec/controller/single_article_controller.dart';
-import 'package:tec/view/single_screen.dart';
 
 class ArticleListScreen extends StatelessWidget {
   ArticleListScreen({Key? key}) : super(key: key);

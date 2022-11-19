@@ -1,13 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:tec/component/my_colors.dart';
 import 'package:tec/component/my_component.dart';
 import 'package:tec/component/my_strings.dart';
 import 'package:tec/controller/home_screen_controller.dart';
 import 'package:tec/controller/single_article_controller.dart';
-import 'package:tec/models/fake_data.dart';
 import 'package:tec/view/article_list_screen.dart';
 
 
@@ -84,12 +82,19 @@ class HomeScreen extends StatelessWidget {
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(16),
                                     image: DecorationImage(
-                                       image: imageProvider
+                                       image: imageProvider,fit: BoxFit.cover
                                     )
                                   ),
+                                  foregroundDecoration: const BoxDecoration(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(16)),
+                                      gradient: LinearGradient(
+                                          begin: Alignment.bottomCenter,
+                                          end: Alignment.topCenter,
+                                          colors: GradiantColors.blogPost)),
                                 );
                               },
-                              placeholder: (context, url) => Loading(),
+                              placeholder: (context, url) => const Loading(),
                               errorWidget: (context, url, error) => const Icon(Icons.image_not_supported_outlined,size: 50,color: Colors.grey,),
                             ),
                             Positioned(
@@ -205,7 +210,7 @@ class HomeScreen extends StatelessWidget {
                   image: DecorationImage(
                       image: imageProvider, fit: BoxFit.cover)),
             )),
-            placeholder: ((context, url) => Loading()),
+            placeholder: ((context, url) => const Loading()),
             errorWidget: ((context, url, error) => const Icon(
               Icons.image_not_supported_outlined,
               size: 50,
@@ -219,19 +224,6 @@ class HomeScreen extends StatelessWidget {
           right: 0,
           child: Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text(homePagePosterMap['writer'] + ' - ' + homePagePosterMap['date'],style: textTheme.subtitle1,),
-                  Row(
-                    children: [
-                      Text(homePagePosterMap['view'],style: textTheme.subtitle1,),
-                      const SizedBox(width: 8,),
-                      const Icon(Icons.remove_red_eye_sharp,color: Colors.white,size: 16,),
-                    ],
-                  )
-                ],
-              ),
               Text(homeScreenController.poster.value.title!,style: textTheme.headline1,),
             ],
           ),
@@ -245,7 +237,7 @@ class HomeScreen extends StatelessWidget {
       height: 60,
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
-          itemCount: tagList.length,
+          itemCount: homeScreenController.tagList.length,
           itemBuilder: (context,index){
             return Padding(
               padding: EdgeInsets.fromLTRB(0,8,index == 0 ? bodyMargin : 15,8),
@@ -276,7 +268,7 @@ class SeeMorePodcast extends StatelessWidget {
         children: [
           Image.asset('assets/icons/microphon.png',color: SolidColors.seeMore,height: 28,),
           const SizedBox(width: 8,),
-          Text(MyStrings.viewHotestPodCasts,style: textTheme.headline3,),
+          Text(MyStrings.viewHottestPodCasts,style: textTheme.headline3,),
         ],
       ),
     );
@@ -301,7 +293,7 @@ class SeeMoreBlog extends StatelessWidget {
         children: [
           Image.asset('assets/icons/bluepen.png',color: SolidColors.seeMore,height: 28,),
           const SizedBox(width: 8,),
-          Text(MyStrings.viewHotestBlog,style: textTheme.headline3,),
+          Text(MyStrings.viewHottestBlog,style: textTheme.headline3,),
         ],
       ),
     );
