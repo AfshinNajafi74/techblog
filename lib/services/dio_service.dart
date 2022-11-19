@@ -14,4 +14,18 @@ class DioService {
       return response;
     });
   }
+
+  Future<dynamic> postMethod(Map<String,dynamic> map , String url) async {
+    _dio.options.headers['content-Type'] = 'application/json';
+    // TODO => read token from storage
+    return await _dio.post(
+        url,
+        data: map,
+        options: Options(responseType: ResponseType.json,method: 'POST')).then((value) {
+        log(value.headers.toString());
+        log(value.data.toString());
+        log(value.statusCode.toString());
+        return value;
+    });
+  }
 }

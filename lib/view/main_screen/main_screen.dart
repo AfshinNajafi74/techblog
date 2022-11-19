@@ -7,6 +7,7 @@ import 'package:tec/gen/assets.gen.dart';
 import 'package:tec/view/main_screen/home_screen.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:tec/view/main_screen/profile_screen.dart';
+import 'package:tec/view/register/register_intro.dart';
 
 
 final GlobalKey<ScaffoldState> _key = GlobalKey();
@@ -174,7 +175,10 @@ class BottomNavigation extends StatelessWidget {
                     icon: Image.asset('assets/icons/home.png')
                 ),
                 IconButton(
-                    onPressed: (){},
+                    onPressed: (){
+                      // TODO check login status
+                      Get.to(RegisterIntro());
+                    },
                     icon: Image.asset('assets/icons/write.png')
                 ),
                 IconButton(
