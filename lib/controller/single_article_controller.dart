@@ -4,6 +4,7 @@ import 'package:tec/models/article_info_model.dart';
 import 'package:tec/models/article_model.dart';
 import 'package:tec/models/tags_model.dart';
 import 'package:tec/services/dio_service.dart';
+import 'package:tec/view/single_screen.dart';
 
 class SingleArticleController extends GetxController{
   RxBool loading = false.obs;
@@ -17,7 +18,7 @@ class SingleArticleController extends GetxController{
     // getArticleInfo();
   }
 
-  getArticleInfo() async{
+  getArticleInfo(var id) async{
     articleInfoModel = ArticleInfoModel().obs;
     loading.value = true;
     // TODO is hard code
@@ -39,5 +40,6 @@ class SingleArticleController extends GetxController{
 
       loading.value = true;
     }
+    Get.to(SingleScreen(),);
   }
 }

@@ -5,6 +5,7 @@ import 'package:tec/component/my_colors.dart';
 import 'package:tec/view/article_list_screen.dart';
 import 'package:tec/view/main_screen/main_screen.dart';
 import 'package:tec/view/single_screen.dart';
+import 'package:tec/view/splash_screen.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -71,7 +72,7 @@ class MyApp extends StatelessWidget {
         )
       ),
       debugShowCheckedModeBanner: false,
-      home: ArticleListScreen(),
+      home: SplashScreen(),
     );
   }
 }
