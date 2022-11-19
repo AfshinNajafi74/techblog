@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:dio/dio.dart';
+import 'package:dio/dio.dart' as dio_service;
 
 class DioService {
   final Dio _dio = Dio();
@@ -20,7 +21,7 @@ class DioService {
     // TODO => read token from storage
     return await _dio.post(
         url,
-        data: map,
+        data: dio_service.FormData.fromMap(map),
         options: Options(responseType: ResponseType.json,method: 'POST')).then((value) {
         log(value.headers.toString());
         log(value.data.toString());

@@ -105,7 +105,9 @@ class RegisterIntro extends StatelessWidget{
                     ),
                     ElevatedButton(
                       onPressed: (() async{
-
+                        registerController.register();
+                        Get.back();
+                        _activateCodeBottomSheet(context, size, textTheme);
                       }),
                       child: const Text("ادامه"),
                     ),
@@ -163,7 +165,7 @@ class RegisterIntro extends StatelessWidget{
                       ),
                       ElevatedButton(
                           onPressed: (() {
-
+                            registerController.verify();
                           }),
                           child: const Text("ادامه"))
                     ]),
