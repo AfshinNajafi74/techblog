@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:tec/component/my_colors.dart';
 import 'package:tec/component/my_component.dart';
 import 'package:tec/component/my_strings.dart';
+import 'package:tec/controller/register_controller.dart';
 import 'package:tec/gen/assets.gen.dart';
 import 'package:tec/view/main_screen/home_screen.dart';
 import 'package:share_plus/share_plus.dart';
@@ -131,7 +132,8 @@ class MainScreen extends StatelessWidget {
 }
 
 class BottomNavigation extends StatelessWidget {
-  const BottomNavigation({
+  final RegisterController _registerController = Get.put(RegisterController(),permanent: false);
+  BottomNavigation({
     Key? key,
     required this.size,
     required this.bodyMargin,
@@ -176,8 +178,7 @@ class BottomNavigation extends StatelessWidget {
                 ),
                 IconButton(
                     onPressed: (){
-                      // TODO check login status
-                      Get.to(RegisterIntro());
+                      _registerController.toggleLogin();
                     },
                     icon: Image.asset('assets/icons/write.png')
                 ),
