@@ -100,24 +100,28 @@ class RegisterController extends GetxController{
                     onTap: () {
                       debugPrint("write article");
                     },
-                    child: Row(
-                      children: [
-                        Image.asset("assets/icons/write_article_icon.png",height: 32,),
-                        const SizedBox(width: 8,),
-                        Text("مدیریت مقاله ها")
-                      ],
+                    child: SizedBox(
+                      child: Row(
+                        children: [
+                          Image.asset("assets/icons/write_article_icon.png",height: 32,),
+                          const SizedBox(width: 8,),
+                          Text("مدیریت مقاله ها")
+                        ],
+                      ),
                     ),
                   ),
                   GestureDetector(
                     onTap: () {
                       debugPrint("write podcast");
                     },
-                    child: Row(
-                      children: [
-                        Image.asset("assets/icons/write_podcast_icon.png",height: 32,),
-                        const SizedBox(width: 8,),
-                        Text("مدیریت پادکست ها")
-                      ],
+                    child: SizedBox(
+                      child: Row(
+                        children: [
+                          Image.asset("assets/icons/write_podcast_icon.png",height: 32,),
+                          const SizedBox(width: 8,),
+                          Text("مدیریت پادکست ها")
+                        ],
+                      ),
                     ),
                   ),
                 ],
