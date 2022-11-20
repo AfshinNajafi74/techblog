@@ -4,9 +4,9 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:tec/binding.dart';
 import 'package:tec/component/my_colors.dart';
+import 'package:tec/view/articles/manage_article_screen.dart';
 import 'package:tec/view/main_screen/main_screen.dart';
 import 'package:tec/view/articles/single_screen.dart';
-import 'package:tec/view/splash_screen.dart';
 import 'package:get_storage/get_storage.dart';
 import 'my_http_overrides.dart';
 
@@ -34,10 +34,11 @@ class MyApp extends StatelessWidget {
       theme: lightTheme(textTheme),
       debugShowCheckedModeBanner: false,
       getPages: [
-        GetPage(name: routeMainScreen, page: () => MainScreen(),binding: RegisterBinding()),
-        GetPage(name: routeSingleScreen, page: () => SingleScreen(),binding: ArticleBinding())
+        GetPage(name: NamedRoutes.mainScreen, page: () => MainScreen(),binding: RegisterBinding()),
+        GetPage(name: NamedRoutes.singleScreen, page: () => SingleScreen(),binding: ArticleBinding()),
+        GetPage(name: NamedRoutes.manageArticleScreen, page: () => ManageArticleScreen(),binding: ArticleManagerBinding())
       ],
-      initialRoute: routeMainScreen,
+      initialRoute: NamedRoutes.mainScreen,
     );
   }
 
@@ -91,6 +92,9 @@ class MyApp extends StatelessWidget {
   }
 }
 
-String routeMainScreen = "/";
-String routeSingleScreen = "/SingleScreen";
+class NamedRoutes{
+  static String mainScreen = "/";
+  static String singleScreen = "/SingleScreen";
+  static String manageArticleScreen = "/ManageArticleScreen";
 
+}

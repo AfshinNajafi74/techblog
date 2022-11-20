@@ -6,11 +6,11 @@ import 'package:tec/component/my_strings.dart';
 import 'package:tec/controller/register_controller.dart';
 
 
-class ManageArticle extends StatelessWidget{
+class ManageArticleScreen extends StatelessWidget{
 
   final RegisterController registerController = Get.find<RegisterController>();
 
-  ManageArticle({super.key});
+  ManageArticleScreen({super.key});
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;

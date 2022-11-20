@@ -29,7 +29,7 @@ class ArticleListScreen extends StatelessWidget {
                   return GestureDetector(
                     onTap: () {
                       singleArticleController.getArticleInfo(listArticleController.articleList[index].id);
-                      Get.toNamed(routeSingleScreen);
+                      Get.toNamed(NamedRoutes.singleScreen);
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
