@@ -4,7 +4,7 @@ import 'package:tec/models/article_info_model.dart';
 import 'package:tec/models/article_model.dart';
 import 'package:tec/models/tags_model.dart';
 import 'package:tec/services/dio_service.dart';
-import 'package:tec/view/single_screen.dart';
+import 'package:tec/view/articles/single_screen.dart';
 
 class SingleArticleController extends GetxController{
   RxBool loading = false.obs;

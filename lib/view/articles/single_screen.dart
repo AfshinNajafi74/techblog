@@ -4,11 +4,11 @@ import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
 import 'package:tec/component/my_colors.dart';
 import 'package:tec/component/my_component.dart';
-import 'package:tec/controller/list_article_controller.dart';
-import 'package:tec/controller/single_article_controller.dart';
-import 'package:tec/view/article_list_screen.dart';
+import 'package:tec/controller/articles/list_article_controller.dart';
+import 'package:tec/controller/articles/single_article_controller.dart';
+import 'package:tec/view/articles/article_list_screen.dart';
 
-import '../gen/assets.gen.dart';
+import '../../gen/assets.gen.dart';
 
 class SingleScreen extends StatelessWidget {
   final SingleArticleController singleArticleController = Get.find<SingleArticleController>();

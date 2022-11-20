@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tec/component/my_component.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:tec/controller/list_article_controller.dart';
-import 'package:tec/controller/single_article_controller.dart';
+import 'package:tec/controller/articles/list_article_controller.dart';
+import 'package:tec/controller/articles/single_article_controller.dart';
 
-import '../main.dart';
+import '../../main.dart';
 
 class ArticleListScreen extends StatelessWidget {
   ArticleListScreen({Key? key}) : super(key: key);

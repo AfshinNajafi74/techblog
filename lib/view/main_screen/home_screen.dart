@@ -5,8 +5,8 @@ import 'package:tec/component/my_colors.dart';
 import 'package:tec/component/my_component.dart';
 import 'package:tec/component/my_strings.dart';
 import 'package:tec/controller/home_screen_controller.dart';
-import 'package:tec/controller/single_article_controller.dart';
-import 'package:tec/view/article_list_screen.dart';
+import 'package:tec/controller/articles/single_article_controller.dart';
+import 'package:tec/view/articles/article_list_screen.dart';
 
 
 class HomeScreen extends StatelessWidget {
