@@ -132,7 +132,8 @@ class MainScreen extends StatelessWidget {
 }
 
 class BottomNavigation extends StatelessWidget {
-  final RegisterController _registerController = Get.put(RegisterController(),permanent: false);
+
+
   BottomNavigation({
     Key? key,
     required this.size,
@@ -178,7 +179,7 @@ class BottomNavigation extends StatelessWidget {
                 ),
                 IconButton(
                     onPressed: (){
-                      _registerController.toggleLogin();
+                      Get.find<RegisterController>().toggleLogin();
                     },
                     icon: Image.asset('assets/icons/write.png')
                 ),

@@ -8,7 +8,7 @@ import 'package:tec/controller/register_controller.dart';
 
 class RegisterIntro extends StatelessWidget{
 
-  final RegisterController  registerController = Get.put(RegisterController());
+  final RegisterController registerController = Get.find<RegisterController>();
 
   RegisterIntro({super.key});
   @override

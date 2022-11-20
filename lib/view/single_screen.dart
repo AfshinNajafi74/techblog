@@ -11,7 +11,7 @@ import 'package:tec/view/article_list_screen.dart';
 import '../gen/assets.gen.dart';
 
 class SingleScreen extends StatelessWidget {
-  final SingleArticleController singleArticleController = Get.put(SingleArticleController());
+  final SingleArticleController singleArticleController = Get.find<SingleArticleController>();
 
   SingleScreen({super.key});
 

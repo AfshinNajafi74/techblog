@@ -5,6 +5,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:tec/controller/list_article_controller.dart';
 import 'package:tec/controller/single_article_controller.dart';
 
+import '../main.dart';
+
 class ArticleListScreen extends StatelessWidget {
   ArticleListScreen({Key? key}) : super(key: key);
  final ListArticleController listArticleController = Get.put(ListArticleController());
@@ -27,6 +29,7 @@ class ArticleListScreen extends StatelessWidget {
                   return GestureDetector(
                     onTap: () {
                       singleArticleController.getArticleInfo(listArticleController.articleList[index].id);
+                      Get.toNamed(routeSingleScreen);
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
