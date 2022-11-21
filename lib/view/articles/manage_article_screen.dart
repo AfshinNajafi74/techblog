@@ -1,9 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tec/component/my_colors.dart';
+import 'package:tec/constant/my_colors.dart';
 import 'package:tec/component/my_component.dart';
-import 'package:tec/component/my_strings.dart';
+import 'package:tec/constant/my_strings.dart';
 import 'package:tec/controller/articles/manage_article_controller.dart';
 import 'package:tec/main.dart';
 
@@ -26,7 +26,7 @@ class ManageArticleScreen extends StatelessWidget{
               padding: const EdgeInsets.all(8.0),
               child: ElevatedButton(
                 onPressed: (){
-
+                  Get.toNamed(NamedRoutes.singleManageArticleScreen);
                 },
                 style: ButtonStyle(fixedSize: MaterialStateProperty.all(Size(Get.width/3, 56))),
                 child: const Text('بریم برای نوشتن یه مقاله باحال',),

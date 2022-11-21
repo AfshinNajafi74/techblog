@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tec/component/my_colors.dart';
+import 'package:tec/component/dimens.dart';
+import 'package:tec/constant/my_colors.dart';
 import 'package:tec/component/my_component.dart';
-import 'package:tec/component/my_strings.dart';
+import 'package:tec/constant/my_strings.dart';
 import 'package:tec/controller/register_controller.dart';
 import 'package:tec/gen/assets.gen.dart';
 import 'package:tec/view/main_screen/home_screen.dart';
@@ -20,8 +21,6 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var textTheme = Theme.of(context).textTheme;
-    var size = MediaQuery.of(context).size;
-    double bodyMargin = size.width/10;
     return  SafeArea(
       child: Scaffold(
         key: _key,
@@ -37,7 +36,7 @@ class MainScreen extends StatelessWidget {
                 },
                 child: const Icon(Icons.menu,color: Colors.black,)),
               // Image(image: Assets.images.logo),
-              Image.asset('assets/images/logo.png',height: size.height/13.6,),
+              Image.asset('assets/images/logo.png',height: Get.height/13.6,),
               const Icon(Icons.search,color: Colors.black,)
             ],
           ),
@@ -46,7 +45,7 @@ class MainScreen extends StatelessWidget {
         drawer: Drawer(
           backgroundColor: SolidColors.scaffoldBg,
           child: Padding(
-            padding:  EdgeInsets.symmetric(horizontal: bodyMargin),
+            padding:  EdgeInsets.symmetric(horizontal: Dimens.bodyMargin),
             child: ListView(
               children: [
                 DrawerHeader(
@@ -111,15 +110,14 @@ class MainScreen extends StatelessWidget {
                   ()=> IndexedStack(
                     index: selectedPageIndex.value,
                     children: [
-                      HomeScreen(size: size, textTheme: textTheme, bodyMargin: bodyMargin),
-                      ProfileScreen(size: size, textTheme: textTheme, bodyMargin: bodyMargin)
+                      HomeScreen(textTheme: textTheme, bodyMargin: Dimens.bodyMargin),
+                      ProfileScreen(textTheme: textTheme, bodyMargin: Dimens.bodyMargin)
                     ],
                   ),
                 )
             ),
             BottomNavigation(
-                size: size,
-                bodyMargin: bodyMargin,
+                bodyMargin: Dimens.bodyMargin,
                 changeScreen: (int value){
                   selectedPageIndex.value = value;
                 },
@@ -136,12 +134,10 @@ class BottomNavigation extends StatelessWidget {
 
   BottomNavigation({
     Key? key,
-    required this.size,
     required this.bodyMargin,
     required this.changeScreen,
   }) : super(key: key);
 
-  final Size size;
   final double bodyMargin;
   final Function(int) changeScreen;
 
@@ -152,7 +148,7 @@ class BottomNavigation extends StatelessWidget {
       right: 0,
       left: 0,
       child: Container(
-        height: size.height/10,
+        height: Get.height/10,
         decoration: const BoxDecoration(
             gradient: LinearGradient(
                 colors: GradiantColors.bottomNavBackground,
@@ -163,7 +159,7 @@ class BottomNavigation extends StatelessWidget {
         child: Padding(
           padding:  EdgeInsets.only(right: bodyMargin,left: bodyMargin),
           child: Container(
-            height: size.height/8,
+            height: Get.height/8,
             decoration: const BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(18)),
                 gradient: LinearGradient(

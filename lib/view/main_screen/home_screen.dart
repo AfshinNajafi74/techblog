@@ -1,9 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tec/component/my_colors.dart';
+import 'package:tec/constant/my_colors.dart';
 import 'package:tec/component/my_component.dart';
-import 'package:tec/component/my_strings.dart';
+import 'package:tec/constant/my_strings.dart';
 import 'package:tec/controller/home_screen_controller.dart';
 import 'package:tec/controller/articles/single_article_controller.dart';
 import 'package:tec/view/articles/article_list_screen.dart';
@@ -12,7 +12,6 @@ import 'package:tec/view/articles/article_list_screen.dart';
 class HomeScreen extends StatelessWidget {
    HomeScreen({
     Key? key,
-    required this.size,
     required this.textTheme,
     required this.bodyMargin,
   }) : super(key: key);
@@ -20,7 +19,7 @@ class HomeScreen extends StatelessWidget {
   final HomeScreenController homeScreenController = Get.put(HomeScreenController());
   final SingleArticleController singleArticleController = Get.put(SingleArticleController());
 
-  final Size size;
+
   final TextTheme textTheme;
   final double bodyMargin;
 
@@ -37,7 +36,7 @@ class HomeScreen extends StatelessWidget {
               const SizedBox(height: 16,),
               tags(),
               const SizedBox(height: 32,),
-              GestureDetector(onTap: () => Get.to(ArticleListScreen()),child: SeeMoreBlog(bodyMargin: bodyMargin, textTheme: textTheme)),
+              GestureDetector(onTap: () => Get.to(ArticleListScreen()),child: SeeMoreBlog(bodyMargin: bodyMargin, textTheme: textTheme,title: MyStrings.viewHottestBlog,)),
               topVisited(),
               const SizedBox(height: 32,),
               SeeMorePodcast(bodyMargin: bodyMargin, textTheme: textTheme),
@@ -53,7 +52,7 @@ class HomeScreen extends StatelessWidget {
 
   Widget topVisited(){
     return SizedBox(
-      height: size.height/3.5,
+      height: Get.height/3.5,
       child: Obx(
         ()=> ListView.builder(
           scrollDirection: Axis.horizontal,
@@ -71,8 +70,8 @@ class HomeScreen extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: SizedBox(
-                        height: size.height/5.3,
-                        width: size.width/2.4,
+                        height: Get.height/5.3,
+                        width: Get.width/2.4,
                         child: Stack(
                           children: [
                             CachedNetworkImage(
@@ -120,7 +119,7 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                        width: size.width/2.4,
+                        width: Get.width/2.4,
                         child: Text(
                           homeScreenController.topVisitedList[index].title!,
                           overflow: TextOverflow.ellipsis,
@@ -139,7 +138,7 @@ class HomeScreen extends StatelessWidget {
 
   Widget topPodcasts(){
     return SizedBox(
-      height: size.height/3.5,
+      height: Get.height/3.5,
       child: Obx(
         ()=> ListView.builder(
           scrollDirection: Axis.horizontal,
@@ -152,8 +151,8 @@ class HomeScreen extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: SizedBox(
-                      height: size.height/5.3,
-                      width: size.width/2.4,
+                      height: Get.height/5.3,
+                      width: Get.width/2.4,
                       child: CachedNetworkImage(
                         imageUrl: homeScreenController.topPodcast[index].poster!,
                         imageBuilder: (context, imageProvider) {
@@ -173,7 +172,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                      width: size.width / 2.4,
+                      width: Get.width / 2.4,
                       child: Text(
                         homeScreenController.topPodcast[index].title!,
                         overflow: TextOverflow.ellipsis,
@@ -192,8 +191,8 @@ class HomeScreen extends StatelessWidget {
     return Stack(
       children: [
         Container(
-          width: size.width/1.25,
-          height: size.height/4.2,
+          width: Get.width/1.25,
+          height: Get.height/4.2,
           foregroundDecoration: const BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(16)),
               gradient: LinearGradient(
@@ -275,30 +274,6 @@ class SeeMorePodcast extends StatelessWidget {
   }
 }
 
-class SeeMoreBlog extends StatelessWidget {
-  const SeeMoreBlog({
-    Key? key,
-    required this.bodyMargin,
-    required this.textTheme,
-  }) : super(key: key);
-
-  final double bodyMargin;
-  final TextTheme textTheme;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding:  EdgeInsets.only(right: bodyMargin,bottom: 8),
-      child:  Row(
-        children: [
-          Image.asset('assets/icons/bluepen.png',color: SolidColors.seeMore,height: 28,),
-          const SizedBox(width: 8,),
-          Text(MyStrings.viewHottestBlog,style: textTheme.headline3,),
-        ],
-      ),
-    );
-  }
-}
 
 
 

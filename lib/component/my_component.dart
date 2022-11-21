@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
-import 'package:tec/component/my_colors.dart';
+import 'package:tec/constant/my_colors.dart';
 import 'package:tec/component/text_style.dart';
 import 'package:tec/controller/home_screen_controller.dart';
 import 'package:tec/gen/assets.gen.dart';
@@ -13,18 +13,16 @@ import 'package:url_launcher/url_launcher.dart';
 class TecDivider extends StatelessWidget {
   const TecDivider({
     Key? key,
-    required this.size,
   }) : super(key: key);
 
-  final Size size;
 
   @override
   Widget build(BuildContext context) {
     return Divider(
       thickness: 1.5,
       color: SolidColors.dividerColor,
-      indent: size.width/6,
-      endIndent: size.width/6,
+      indent: Get.width/6,
+      endIndent: Get.width/6,
     );
   }
 }
@@ -128,6 +126,34 @@ PreferredSize appBar(String title) {
     ),
   );
 }
+
+class SeeMoreBlog extends StatelessWidget {
+  const SeeMoreBlog({
+    Key? key,
+    required this.bodyMargin,
+    required this.textTheme,
+    required this.title,
+  }) : super(key: key);
+
+  final double bodyMargin;
+  final TextTheme textTheme;
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding:  EdgeInsets.only(right: bodyMargin,bottom: 8),
+      child:  Row(
+        children: [
+          Image.asset('assets/icons/bluepen.png',color: SolidColors.seeMore,height: 28,),
+          const SizedBox(width: 8,),
+          Text(title,style: textTheme.headline3,),
+        ],
+      ),
+    );
+  }
+}
+
 
 
 

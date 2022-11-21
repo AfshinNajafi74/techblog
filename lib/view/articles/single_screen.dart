@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
-import 'package:tec/component/my_colors.dart';
+import 'package:tec/constant/my_colors.dart';
 import 'package:tec/component/my_component.dart';
 import 'package:tec/controller/articles/list_article_controller.dart';
 import 'package:tec/controller/articles/single_article_controller.dart';
@@ -49,14 +49,14 @@ class SingleScreen extends StatelessWidget {
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
-                          children: const [
-                            SizedBox(width: 20,),
-                            Icon(Icons.arrow_back,color: Colors.white,size: 24,),
-                            Expanded(child: SizedBox()),
-                            Icon(Icons.bookmark_border_rounded,color: Colors.white,size: 24,),
-                            SizedBox(width: 20,),
-                            Icon(Icons.share,color: Colors.white,size: 24,),
-                            SizedBox(width: 20,),
+                          children:  [
+                            const SizedBox(width: 20,),
+                            GestureDetector(onTap: () => Get.back(),child: const Icon(Icons.arrow_back,color: Colors.white,size: 24,)),
+                            const Expanded(child: SizedBox()),
+                            const Icon(Icons.bookmark_border_rounded,color: Colors.white,size: 24,),
+                            const SizedBox(width: 20,),
+                            const Icon(Icons.share,color: Colors.white,size: 24,),
+                            const SizedBox(width: 20,),
                           ],
                         ),
                       )

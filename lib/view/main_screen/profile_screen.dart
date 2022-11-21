@@ -1,24 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:tec/component/my_colors.dart';
+import 'package:tec/constant/my_colors.dart';
 import 'package:tec/component/my_component.dart';
-import 'package:tec/component/my_strings.dart';
+import 'package:tec/constant/my_strings.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({
     Key? key,
-    required this.size,
     required this.textTheme,
     required this.bodyMargin,
   }) : super(key: key);
 
-  final Size size;
   final TextTheme textTheme;
   final double bodyMargin;
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      physics: BouncingScrollPhysics(),
+      physics: const BouncingScrollPhysics(),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -36,7 +34,7 @@ class ProfileScreen extends StatelessWidget {
           Text('فاطمه امیری',style: textTheme.headline4,),
           Text('afshinnajafi74@gmail.com',style: textTheme.headline4,),
           const SizedBox(height: 40,),
-          TecDivider(size: size),
+          const TecDivider(),
           InkWell(
             splashColor: SolidColors.primaryColor,
             onTap: (){},
@@ -47,7 +45,7 @@ class ProfileScreen extends StatelessWidget {
                 )
             ),
           ),
-          TecDivider(size: size),
+          const TecDivider(),
           InkWell(
             splashColor: SolidColors.primaryColor,
             onTap: (){},
@@ -58,7 +56,7 @@ class ProfileScreen extends StatelessWidget {
               ),
             ),
           ),
-          TecDivider(size: size),
+          const TecDivider(),
           InkWell(
             onTap: (){},
             splashColor: SolidColors.primaryColor,

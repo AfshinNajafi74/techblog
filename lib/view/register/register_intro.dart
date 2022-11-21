@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:tec/component/my_colors.dart';
-import 'package:tec/component/my_strings.dart';
+import 'package:tec/constant/my_colors.dart';
+import 'package:tec/constant/my_strings.dart';
 import 'package:tec/controller/register_controller.dart';
 
 
