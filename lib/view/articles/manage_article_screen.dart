@@ -20,8 +20,21 @@ class ManageArticleScreen extends StatelessWidget{
     return SafeArea(
         child: Scaffold(
           appBar: appBar("مدیریت مقاله ها"),
+          bottomNavigationBar:               Padding(
+            padding: const EdgeInsets.only(top: 32),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                onPressed: (){
+
+                },
+                style: ButtonStyle(fixedSize: MaterialStateProperty.all(Size(Get.width/3, 56))),
+                child: const Text('بریم برای نوشتن یه مقاله باحال',),
+              ),
+            ),
+          ),
           body: Obx(
-                ()=> manageArticleController.articleList.isNotEmpty ? ListView.builder(
+                ()=> manageArticleController.loading.value == true ? const Loading() : manageArticleController.articleList.isNotEmpty ? ListView.builder(
                  scrollDirection: Axis.vertical,
                  itemCount: manageArticleController.articleList.length,
                  itemBuilder: (context, index) {
@@ -103,29 +116,6 @@ class ManageArticleScreen extends StatelessWidget{
                     )
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 32),
-                child: ElevatedButton(
-                    onPressed: (){
-
-                    },
-                  style: ButtonStyle(
-                    textStyle: MaterialStateProperty.resolveWith((states) {
-                      if(states.contains(MaterialState.pressed)){
-                        return textTheme.headline1;
-                      }
-                      return textTheme.subtitle1;
-                    }),
-                    backgroundColor: MaterialStateProperty.resolveWith((states) {
-                      if(states.contains(MaterialState.pressed)){
-                        return SolidColors.seeMore;
-                      }
-                      return SolidColors.primaryColor;
-                    })
-                  ),
-                    child: const Text('بریم برای نوشتن یه مقاله باحال',),
-                ),
-              )
             ],
           ),
         );

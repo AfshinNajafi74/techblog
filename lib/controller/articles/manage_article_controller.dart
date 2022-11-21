@@ -5,6 +5,7 @@ import 'package:tec/services/dio_service.dart';
 
 class ManageArticleController extends GetxController{
   RxList<ArticleModel> articleList = RxList.empty();
+  RxBool loading = false.obs;
 
   @override
   onInit(){
@@ -13,6 +14,7 @@ class ManageArticleController extends GetxController{
   }
 
   getManageArticle() async {
+    loading.value = true;
     // var response = await DioService().getMethod(ApiConstant.publishedByMe+GetStorage().read(StorageKey.userId));
     var response = await DioService().getMethod("${ApiConstant.publishedByMe}1");
     if(response.statusCode == 200){
@@ -20,6 +22,7 @@ class ManageArticleController extends GetxController{
         articleList.add(ArticleModel.fromJson(element));
       });
       // articleList.clear();
+      loading.value = false;
     }
 
   }

@@ -44,6 +44,22 @@ class MyApp extends StatelessWidget {
 
   ThemeData lightTheme(TextTheme textTheme) {
     return ThemeData(
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ButtonStyle(
+            textStyle: MaterialStateProperty.resolveWith((states) {
+              if(states.contains(MaterialState.pressed)){
+                return textTheme.headline1;
+              }
+              return textTheme.subtitle1;
+            }),
+            backgroundColor: MaterialStateProperty.resolveWith((states) {
+              if(states.contains(MaterialState.pressed)){
+                return SolidColors.seeMore;
+              }
+              return SolidColors.primaryColor;
+            })
+        )
+      ),
       fontFamily: 'dana',
       brightness: Brightness.light,
       textTheme:  const TextTheme(
