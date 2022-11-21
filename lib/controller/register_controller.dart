@@ -14,7 +14,7 @@ class RegisterController extends GetxController{
   TextEditingController emailTextEditingController = TextEditingController();
   TextEditingController activeCodeTextEditingController = TextEditingController();
   var email = "";
-  var user_id = "";
+  var userId = "";
 
   register() async {
     Map<String,dynamic> map = {
@@ -23,14 +23,14 @@ class RegisterController extends GetxController{
     };
     var response = await DioService().postMethod(map, ApiConstant.postRegister);
     email = emailTextEditingController.text;
-    user_id = response.data["user_id"];
+    userId = response.data["user_id"];
     debugPrint(response.toString());
   }
 
   verify() async {
     Map<String,dynamic> map = {
       "email" : email,
-      "user_id" : user_id,
+      "user_id" : userId,
       "code" : activeCodeTextEditingController.text,
       "command" : "verify"
     };
@@ -42,10 +42,10 @@ class RegisterController extends GetxController{
     switch(status){
       case "verified":
         var box = GetStorage();
-        box.write(token, response.data["token"]);
-        box.write(userId, response.data["user_id"]);
-        debugPrint("READ :::: ${box.read(token)}");
-        debugPrint("READ :::: ${box.read(userId)}");
+        box.write(StorageKey.token, response.data["token"]);
+        box.write(StorageKey.userId, response.data["user_id"]);
+        // debugPrint("READ :::: ${box.read(StorageKey.token)}");
+        // debugPrint("READ :::: ${box.read(StorageKey.userId)}");
         Get.offAll(MainScreen());
         break;
       case "incorrect_code":
@@ -58,7 +58,7 @@ class RegisterController extends GetxController{
   }
 
   toggleLogin(){
-    if(GetStorage().read(token) == null){
+    if(GetStorage().read(StorageKey.token) == null){
       Get.to(RegisterIntro());
     }else{
       routeToWriteBottomSheet();

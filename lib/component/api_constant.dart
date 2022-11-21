@@ -5,4 +5,5 @@ class ApiConstant {
   static const getArticleList ="${baseUrl}article/get.php?command=new&user_id=";
   static const getArticleListTagId ="${baseUrl}article/get.php?command=get_articles_with_tag_id&tag_id=2&user_id=1";
   static const postRegister ="${baseUrl}register/action.php";
+  static const publishedByMe ="$baseUrl/article/get.php?command=published_by_me&user_id=";
 }

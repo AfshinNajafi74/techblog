@@ -1,15 +1,16 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:tec/component/my_colors.dart';
 import 'package:tec/component/my_component.dart';
 import 'package:tec/component/my_strings.dart';
-import 'package:tec/controller/register_controller.dart';
+import 'package:tec/controller/articles/manage_article_controller.dart';
+import 'package:tec/main.dart';
 
 
 class ManageArticleScreen extends StatelessWidget{
 
-  final RegisterController registerController = Get.find<RegisterController>();
+  final ManageArticleController manageArticleController = Get.find<ManageArticleController>();
 
   ManageArticleScreen({super.key});
   @override
@@ -19,7 +20,69 @@ class ManageArticleScreen extends StatelessWidget{
     return SafeArea(
         child: Scaffold(
           appBar: appBar("مدیریت مقاله ها"),
-          body: articleEmptyState(textTheme),
+          body: Obx(
+                ()=> manageArticleController.articleList.isNotEmpty ? ListView.builder(
+                 scrollDirection: Axis.vertical,
+                 itemCount: manageArticleController.articleList.length,
+                 itemBuilder: (context, index) {
+                 return GestureDetector(
+                  onTap: () {
+                     /// route to single manage
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: Get.height / 6,
+                          width: Get.width / 3,
+                          child: CachedNetworkImage(
+                            imageUrl: manageArticleController.articleList[index].image!,
+                            imageBuilder: (context, imageProvider) {
+                              return Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(16),
+                                    image: DecorationImage(
+                                        image: imageProvider,
+                                        fit: BoxFit.cover
+                                    )
+                                ),
+                              );
+                            },
+                            placeholder: (context, url) => const Loading(),
+                            errorWidget: (context, url, error) => const Icon(Icons.image_not_supported_outlined,size: 50,color: Colors.grey,),
+                          ),
+                        ),
+                        const SizedBox(width: 16,),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              width: Get.width / 2,
+                              child: Text(manageArticleController.articleList[index].title!,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 2,
+                              ),
+                            ),
+                            const SizedBox(height: 16,),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(manageArticleController.articleList[index].author!,style: textTheme.caption),
+                                const SizedBox(width: 20,),
+                                Text("${manageArticleController.articleList[index].view! } بازدید",style: textTheme.caption,),
+                              ],
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            ) : articleEmptyState(textTheme),
+          ),
         ) 
     );
   }
