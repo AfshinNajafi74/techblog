@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
@@ -5,21 +7,23 @@ import 'package:get/get.dart';
 import 'package:tec/component/dimens.dart';
 import 'package:tec/constant/my_colors.dart';
 import 'package:tec/component/my_component.dart';
-import 'package:tec/constant/my_strings.dart';
 import 'package:tec/controller/articles/list_article_controller.dart';
 import 'package:tec/controller/articles/manage_article_controller.dart';
+import 'package:tec/controller/file_controller.dart';
+import 'package:tec/services/pick_file.dart';
 import 'package:tec/view/articles/article_list_screen.dart';
-import '../../gen/assets.gen.dart';
+
 
 class SingleManageArticleScreen extends StatelessWidget {
   final ManageArticleController manageArticleController = Get.find<ManageArticleController>();
+  final FilePickerController filePickerController = Get.put(FilePickerController());
+
 
   SingleManageArticleScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
-    double bodyMargin = Get.size.width/10;
 
     return SafeArea(
       child: Scaffold(
@@ -30,6 +34,7 @@ class SingleManageArticleScreen extends StatelessWidget {
               children: [
                 Stack(
                   children: [
+                    filePickerController.file.value.name == "nothing" ?
                     CachedNetworkImage(
                       imageUrl: manageArticleController.articleInfoModel.value.image!,
                       imageBuilder: (context, imageProvider) {
@@ -39,7 +44,7 @@ class SingleManageArticleScreen extends StatelessWidget {
                       errorWidget: (context, url, error) {
                         return Image.asset("assets/images/single_place_holder.jpg");
                       },
-                    ),
+                    ) : Image.file(File(filePickerController.file.value.path!)),
                     Positioned(
                       child: Container(
                         height: 60,
@@ -63,23 +68,28 @@ class SingleManageArticleScreen extends StatelessWidget {
                       bottom: 0,
                       right: 0,
                       child: Center(
-                        child: Container(
-                          height: 30,
-                          width: Get.width / 3,
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(12),
-                              topRight: Radius.circular(12),
+                        child: GestureDetector(
+                          onTap: () {
+                            pickFiles();
+                          },
+                          child: Container(
+                            height: 30,
+                            width: Get.width / 3,
+                            decoration: const BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(12),
+                                topRight: Radius.circular(12),
+                              ),
+                              color: SolidColors.primaryColor
                             ),
-                            color: SolidColors.primaryColor
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text("انتخاب تصویر",style: textTheme.headline2,),
-                              const SizedBox(width: 8,),
-                              const Icon(Icons.add,color: Colors.white,)
-                            ],
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text("انتخاب تصویر",style: textTheme.headline2,),
+                                const SizedBox(width: 8,),
+                                const Icon(Icons.add,color: Colors.white,)
+                              ],
+                            ),
                           ),
                         ),
                       )
