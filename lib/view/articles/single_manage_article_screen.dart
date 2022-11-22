@@ -21,6 +21,34 @@ class SingleManageArticleScreen extends StatelessWidget {
 
   SingleManageArticleScreen({super.key});
 
+  getTitle(){
+    Get.defaultDialog(
+      titleStyle: TextStyle(
+        color: SolidColors.scaffoldBg
+      ),
+      title: "عنوان مقاله",
+      content: TextField(
+        controller: manageArticleController.titleTextEditingController,
+        keyboardType: TextInputType.text,
+        style: TextStyle(
+          color: SolidColors.colorTitle
+        ),
+        decoration: InputDecoration(
+          hintText: "اینجا بنویس"
+        ),
+      ),
+      backgroundColor: SolidColors.primaryColor,
+      radius: 8,
+      confirm: ElevatedButton(
+        onPressed: (){
+          manageArticleController.updateTitle();
+          Get.back();
+        },
+          child: Text("ثـبـت")
+      )
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
@@ -34,17 +62,21 @@ class SingleManageArticleScreen extends StatelessWidget {
               children: [
                 Stack(
                   children: [
-                    filePickerController.file.value.name == "nothing" ?
-                    CachedNetworkImage(
-                      imageUrl: manageArticleController.articleInfoModel.value.image!,
-                      imageBuilder: (context, imageProvider) {
-                        return Image(image: imageProvider,);
-                      },
-                      placeholder: (context, url) => const Loading(),
-                      errorWidget: (context, url, error) {
-                        return Image.asset("assets/images/single_place_holder.jpg");
-                      },
-                    ) : Image.file(File(filePickerController.file.value.path!)),
+                    SizedBox(
+                      width: double.infinity,
+                      height: Get.height / 3,
+                      child: filePickerController.file.value.name == "nothing" ?
+                      CachedNetworkImage(
+                        imageUrl: manageArticleController.articleInfoModel.value.image!,
+                        imageBuilder: (context, imageProvider) {
+                          return Image(image: imageProvider,);
+                        },
+                        placeholder: (context, url) => const Loading(),
+                        errorWidget: (context, url, error) {
+                          return Image.asset("assets/images/single_place_holder.jpg",fit: BoxFit.cover);
+                        },
+                      ) : Image.file(File(filePickerController.file.value.path!),fit: BoxFit.cover,),
+                    ),
                     Positioned(
                       child: Container(
                         height: 60,
@@ -97,7 +129,11 @@ class SingleManageArticleScreen extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 24,),
-                SeeMoreBlog(bodyMargin: Dimens.halfBodyMargin, textTheme: textTheme,title: "ویرایش عنوان مقاله",),
+                GestureDetector(
+                  onTap: () {
+                    getTitle();
+                  },
+                  child: SeeMoreBlog(bodyMargin: Dimens.halfBodyMargin, textTheme: textTheme,title: "ویرایش عنوان مقاله",)),
                 Padding(
                   padding:  EdgeInsets.all(Dimens.halfBodyMargin),
                   child: Text(manageArticleController.articleInfoModel.value.title!,maxLines: 2,style: textTheme.titleLarge,),

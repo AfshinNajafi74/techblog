@@ -46,6 +46,14 @@ class MyApp extends StatelessWidget {
 
   ThemeData lightTheme(TextTheme textTheme) {
     return ThemeData(
+        inputDecorationTheme: InputDecorationTheme(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16),
+            borderSide: const BorderSide(width: 2),
+          ),
+          filled: true,
+          fillColor: Colors.white,
+        ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ButtonStyle(
             textStyle: MaterialStateProperty.resolveWith((states) {
