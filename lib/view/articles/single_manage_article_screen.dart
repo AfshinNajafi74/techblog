@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
+import 'package:tec/component/dimens.dart';
 import 'package:tec/constant/my_colors.dart';
 import 'package:tec/component/my_component.dart';
 import 'package:tec/constant/my_strings.dart';
@@ -85,26 +86,15 @@ class SingleManageArticleScreen extends StatelessWidget {
                     )
                   ],
                 ),
-                Row(
-                  children: [
-                    SeeMoreBlog(bodyMargin: bodyMargin, textTheme: textTheme,title: MyStrings.viewHottestBlog,),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(manageArticleController.articleInfoModel.value.title!,maxLines: 2,style: textTheme.titleLarge,),
-                    ),
-                  ],
-                ),
+                const SizedBox(height: 24,),
+                SeeMoreBlog(bodyMargin: Dimens.halfBodyMargin, textTheme: textTheme,title: "ویرایش عنوان مقاله",),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    children: [
-                      Image(image: Image.asset(Assets.images.profileAvatar.path,).image,height: 50,),
-                      const SizedBox(width: 16,),
-                    ],
-                  ),
+                  padding:  EdgeInsets.all(Dimens.halfBodyMargin),
+                  child: Text(manageArticleController.articleInfoModel.value.title!,maxLines: 2,style: textTheme.titleLarge,),
                 ),
+                SeeMoreBlog(bodyMargin: Dimens.halfBodyMargin, textTheme: textTheme,title: "ویرایش متن اصلی مقاله",),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: EdgeInsets.all(Dimens.halfBodyMargin),
                   child: HtmlWidget(
                     manageArticleController.articleInfoModel.value.content!,
                     // textStyle: textTheme.headline5,
@@ -113,6 +103,7 @@ class SingleManageArticleScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 25,),
+                SeeMoreBlog(bodyMargin: Dimens.halfBodyMargin, textTheme: textTheme,title: "انتخاب دسته بندی",)
                 // tags(textTheme),
               ],
             ),
