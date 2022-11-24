@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: NamedRoutes.manageArticleScreen, page: () => ManageArticleScreen(),binding: ArticleManagerBinding()),
         GetPage(name: NamedRoutes.singleManageArticleScreen, page: () => SingleManageArticleScreen(),binding: ArticleManagerBinding())
       ],
-      initialRoute: NamedRoutes.mainScreen,
+      initialRoute: "/",
     );
   }
 

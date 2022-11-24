@@ -11,6 +11,7 @@ import 'package:tec/controller/articles/list_article_controller.dart';
 import 'package:tec/controller/articles/manage_article_controller.dart';
 import 'package:tec/controller/file_controller.dart';
 import 'package:tec/services/pick_file.dart';
+import 'package:tec/view/articles/article_content_editor.dart';
 import 'package:tec/view/articles/article_list_screen.dart';
 
 
@@ -138,7 +139,9 @@ class SingleManageArticleScreen extends StatelessWidget {
                   padding:  EdgeInsets.all(Dimens.halfBodyMargin),
                   child: Text(manageArticleController.articleInfoModel.value.title!,maxLines: 2,style: textTheme.titleLarge,),
                 ),
-                SeeMoreBlog(bodyMargin: Dimens.halfBodyMargin, textTheme: textTheme,title: "ویرایش متن اصلی مقاله",),
+                GestureDetector(
+                  onTap: () => Get.to(() => ArticleContentEditor()),
+                  child: SeeMoreBlog(bodyMargin: Dimens.halfBodyMargin, textTheme: textTheme,title: "ویرایش متن اصلی مقاله",)),
                 Padding(
                   padding: EdgeInsets.all(Dimens.halfBodyMargin),
                   child: HtmlWidget(
