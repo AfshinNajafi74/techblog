@@ -10,6 +10,7 @@ import 'package:tec/component/my_component.dart';
 import 'package:tec/controller/articles/list_article_controller.dart';
 import 'package:tec/controller/articles/manage_article_controller.dart';
 import 'package:tec/controller/file_controller.dart';
+import 'package:tec/controller/home_screen_controller.dart';
 import 'package:tec/services/pick_file.dart';
 import 'package:tec/view/articles/article_content_editor.dart';
 import 'package:tec/view/articles/article_list_screen.dart';
@@ -152,7 +153,11 @@ class SingleManageArticleScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 25,),
-                SeeMoreBlog(bodyMargin: Dimens.halfBodyMargin, textTheme: textTheme,title: "انتخاب دسته بندی",)
+                GestureDetector(
+                  onTap: (){
+                    chooseCateBottomSheet(textTheme);
+                  },
+                  child: SeeMoreBlog(bodyMargin: Dimens.halfBodyMargin, textTheme: textTheme,title: "انتخاب دسته بندی",))
                 // tags(textTheme),
               ],
             ),
@@ -162,16 +167,18 @@ class SingleManageArticleScreen extends StatelessWidget {
     );
   }
 
-  Widget tags(textTheme) {
+  Widget cats(textTheme) {
+    HomeScreenController homeScreenController = Get.find<HomeScreenController>();
     return SizedBox(
-      height: 35,
-      child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: manageArticleController.tagList.length,
+      height: Get.height / 1.7,
+      child: GridView.builder(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3,crossAxisSpacing: 5,mainAxisSpacing: 5),
+          scrollDirection: Axis.vertical,
+          itemCount: homeScreenController.tagList.length,
           itemBuilder: ((context, index) {
             return GestureDetector(
               onTap: () async {
-                String id = manageArticleController.tagList[index].id!;
+                String id = homeScreenController.tagList[index].id!;
                 await Get.find<ListArticleController>().getArticleListWithTagsId(id);
                 Get.to(ArticleListScreen());
               },
@@ -181,17 +188,46 @@ class SingleManageArticleScreen extends StatelessWidget {
                   height: 30,
                   decoration: const BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(24)),
-                      color: Colors.grey),
+                      color: SolidColors.primaryColor),
                   child: Padding(
                       padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
-                      child: Text(
-                        manageArticleController.tagList[index].title!,
-                        style: textTheme.headline2,
+                      child: Center(
+                        child: Text(
+                          homeScreenController.tagList[index].title!,
+                          style: textTheme.headline2,
+                        ),
                       )),
                 ),
               ),
             );
           })),
+    );
+  }
+
+  chooseCateBottomSheet(TextTheme textTheme){
+    Get.bottomSheet(
+      Container(
+        height: Get.height / 1.5,
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+          )
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              Text("انتخاب دسته بندی"),
+              const SizedBox(height: 8,),
+              cats(textTheme)
+            ],
+          ),
+        ),
+      ),
+      isScrollControlled: true,
+      persistent: true
     );
   }
 
