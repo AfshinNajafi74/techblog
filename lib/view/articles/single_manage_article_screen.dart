@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
@@ -7,14 +6,11 @@ import 'package:get/get.dart';
 import 'package:tec/component/dimens.dart';
 import 'package:tec/constant/my_colors.dart';
 import 'package:tec/component/my_component.dart';
-import 'package:tec/controller/articles/list_article_controller.dart';
 import 'package:tec/controller/articles/manage_article_controller.dart';
 import 'package:tec/controller/file_controller.dart';
 import 'package:tec/controller/home_screen_controller.dart';
 import 'package:tec/services/pick_file.dart';
 import 'package:tec/view/articles/article_content_editor.dart';
-import 'package:tec/view/articles/article_list_screen.dart';
-
 
 class SingleManageArticleScreen extends StatelessWidget {
   final ManageArticleController manageArticleController = Get.find<ManageArticleController>();
@@ -25,17 +21,17 @@ class SingleManageArticleScreen extends StatelessWidget {
 
   getTitle(){
     Get.defaultDialog(
-      titleStyle: TextStyle(
+      titleStyle: const TextStyle(
         color: SolidColors.scaffoldBg
       ),
       title: "عنوان مقاله",
       content: TextField(
         controller: manageArticleController.titleTextEditingController,
         keyboardType: TextInputType.text,
-        style: TextStyle(
+        style: const TextStyle(
           color: SolidColors.colorTitle
         ),
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
           hintText: "اینجا بنویس"
         ),
       ),
@@ -46,7 +42,7 @@ class SingleManageArticleScreen extends StatelessWidget {
           manageArticleController.updateTitle();
           Get.back();
         },
-          child: Text("ثـبـت")
+          child: const Text("ثـبـت")
       )
     );
   }
@@ -164,6 +160,13 @@ class SingleManageArticleScreen extends StatelessWidget {
                     maxLines: 2,
                     style: textTheme.titleLarge
                   ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ElevatedButton(
+                    onPressed: () async => await manageArticleController.storeArticle(),
+                      child: Text(manageArticleController.loading.value ? "صبر کنید ..." : "ارسال مطلب")
+                  ),
                 )
                 // tags(textTheme),
               ],
@@ -179,7 +182,7 @@ class SingleManageArticleScreen extends StatelessWidget {
     return SizedBox(
       height: Get.height / 1.7,
       child: GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3,crossAxisSpacing: 5,mainAxisSpacing: 5),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3,crossAxisSpacing: 5,mainAxisSpacing: 5),
           scrollDirection: Axis.vertical,
           itemCount: homeScreenController.tagList.length,
           itemBuilder: ((context, index) {
@@ -228,7 +231,7 @@ class SingleManageArticleScreen extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              Text("انتخاب دسته بندی"),
+              const Text("انتخاب دسته بندی"),
               const SizedBox(height: 8,),
               cats(textTheme)
             ],

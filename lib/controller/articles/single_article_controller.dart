@@ -24,7 +24,7 @@ class SingleArticleController extends GetxController{
     // TODO is hard code
     var userId = '';
     // https://techblog.sasansafari.com/Techblog/api/article/get.php?command=info&id=1&user_id=1
-    var response = await DioService().getMethod("${ApiConstant.baseUrl}article/get.php?command=info&id=$id&user_id=$userId");
+    var response = await DioService().getMethod("${ApiUrlConstant.baseUrl}article/get.php?command=info&id=$id&user_id=$userId");
     if(response.statusCode == 200){
       articleInfoModel.value = ArticleInfoModel.fromJson(response.data);
 
@@ -42,4 +42,5 @@ class SingleArticleController extends GetxController{
     }
     Get.to(SingleScreen(),);
   }
+
 }
