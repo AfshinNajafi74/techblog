@@ -31,7 +31,9 @@ class ArticleContentEditor extends StatelessWidget {
                 ),
                 callbacks: Callbacks(
                   onChangeContent: (p0) {
-                    manageArticleController.articleInfoModel.value.content = p0;
+                    manageArticleController.articleInfoModel.update((val) {
+                      val!.content = p0;
+                    });
                     log(manageArticleController.articleInfoModel.value.content.toString());
                   },
                 ),

@@ -157,7 +157,14 @@ class SingleManageArticleScreen extends StatelessWidget {
                   onTap: (){
                     chooseCateBottomSheet(textTheme);
                   },
-                  child: SeeMoreBlog(bodyMargin: Dimens.halfBodyMargin, textTheme: textTheme,title: "انتخاب دسته بندی",))
+                  child: SeeMoreBlog(bodyMargin: Dimens.halfBodyMargin, textTheme: textTheme,title: "انتخاب دسته بندی",)),
+                Padding(
+                  padding:  EdgeInsets.all(Dimens.halfBodyMargin),
+                  child: Text(manageArticleController.articleInfoModel.value.catName == null ? "هیچ دسته بندی انتخاب نشده" : manageArticleController.articleInfoModel.value.catName!,
+                    maxLines: 2,
+                    style: textTheme.titleLarge
+                  ),
+                )
                 // tags(textTheme),
               ],
             ),
@@ -178,9 +185,11 @@ class SingleManageArticleScreen extends StatelessWidget {
           itemBuilder: ((context, index) {
             return GestureDetector(
               onTap: () async {
-                String id = homeScreenController.tagList[index].id!;
-                await Get.find<ListArticleController>().getArticleListWithTagsId(id);
-                Get.to(ArticleListScreen());
+                manageArticleController.articleInfoModel.update((val) {
+                  val!.catId = homeScreenController.tagList[index].id!;
+                  val.catName = homeScreenController.tagList[index].title!;
+                });
+                Get.back();
               },
               child: Padding(
                 padding: const EdgeInsets.only(left: 8),
