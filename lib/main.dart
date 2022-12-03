@@ -9,6 +9,7 @@ import 'package:tec/view/articles/single_manage_article_screen.dart';
 import 'package:tec/view/main_screen/main_screen.dart';
 import 'package:tec/view/articles/single_screen.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:tec/view/podcast/single_podcast_screen.dart';
 import 'my_http_overrides.dart';
 
 void main() async {
@@ -38,9 +39,10 @@ class MyApp extends StatelessWidget {
         GetPage(name: NamedRoutes.mainScreen, page: () => MainScreen(),binding: RegisterBinding()),
         GetPage(name: NamedRoutes.singleScreen, page: () => SingleScreen(),binding: ArticleBinding()),
         GetPage(name: NamedRoutes.manageArticleScreen, page: () => ManageArticleScreen(),binding: ArticleManagerBinding()),
-        GetPage(name: NamedRoutes.singleManageArticleScreen, page: () => SingleManageArticleScreen(),binding: ArticleManagerBinding())
+        GetPage(name: NamedRoutes.singleManageArticleScreen, page: () => SingleManageArticleScreen(),binding: ArticleManagerBinding()),
+        GetPage(name: NamedRoutes.singlePodcastScreen, page: () => SinglePodcastScreen(),)
       ],
-      initialRoute: "/",
+      initialRoute: NamedRoutes.singlePodcastScreen,
     );
   }
 
@@ -123,5 +125,6 @@ class NamedRoutes{
   static String singleScreen = "/SingleScreen";
   static String manageArticleScreen = "/ManageArticleScreen";
   static String singleManageArticleScreen = "/SingleManageArticleScreen";
+  static String singlePodcastScreen = "/SinglePodcastScreen";
 
 }

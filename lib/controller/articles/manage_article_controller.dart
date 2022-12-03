@@ -41,7 +41,6 @@ class ManageArticleController extends GetxController{
       response.data.forEach((element){
         articleList.add(ArticleModel.fromJson(element));
       });
-      // articleList.clear();
       loading.value = false;
     }
 
