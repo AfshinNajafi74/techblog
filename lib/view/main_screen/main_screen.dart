@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tec/component/decorations.dart';
 import 'package:tec/component/dimens.dart';
 import 'package:tec/constant/my_colors.dart';
 import 'package:tec/component/my_component.dart';
@@ -160,12 +161,7 @@ class BottomNavigation extends StatelessWidget {
           padding:  EdgeInsets.only(right: bodyMargin,left: bodyMargin),
           child: Container(
             height: Get.height/8,
-            decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(18)),
-                gradient: LinearGradient(
-                  colors: GradiantColors.bottomNav,
-                )
-            ),
+            decoration: MyDecoration.mainGradiant,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
