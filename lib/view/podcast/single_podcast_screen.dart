@@ -5,7 +5,7 @@ import 'package:tec/component/decorations.dart';
 import 'package:tec/component/my_component.dart';
 import 'package:tec/constant/my_colors.dart';
 import 'package:tec/gen/assets.gen.dart';
-
+import 'package:percent_indicator/percent_indicator.dart';
 import '../../component/dimens.dart';
 
 class SinglePodcastScreen extends StatelessWidget {
@@ -116,6 +116,29 @@ class SinglePodcastScreen extends StatelessWidget {
               child: Container(
                 height: Get.height / 7,
                 decoration: MyDecoration.mainGradiant,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      LinearPercentIndicator(
+                        percent: 1.0,
+                        backgroundColor: Colors.white,
+                        progressColor: Colors.orange,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Icon(Icons.skip_next,color: Colors.white,),
+                          Icon(Icons.play_circle_fill,color: Colors.white,size: 48,),
+                          Icon(Icons.skip_previous,color: Colors.white,),
+                          SizedBox(),
+                          Icon(Icons.repeat,color: Colors.white,),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
               )
             )
           ],
