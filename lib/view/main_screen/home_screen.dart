@@ -8,6 +8,9 @@ import 'package:tec/controller/home_screen_controller.dart';
 import 'package:tec/controller/articles/single_article_controller.dart';
 import 'package:tec/view/articles/article_list_screen.dart';
 
+import '../../main.dart';
+import '../podcast/single_podcast_screen.dart';
+
 
 class HomeScreen extends StatelessWidget {
    HomeScreen({
@@ -144,41 +147,46 @@ class HomeScreen extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           itemCount: homeScreenController.topPodcast.length,
           itemBuilder: (context, index) {
-            return Padding(
-              padding: EdgeInsets.only(right: index == 0 ? bodyMargin : 15),
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: SizedBox(
-                      height: Get.height/5.3,
-                      width: Get.width/2.4,
-                      child: CachedNetworkImage(
-                        imageUrl: homeScreenController.topPodcast[index].poster!,
-                        imageBuilder: (context, imageProvider) {
-                          return Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(16),
-                              image: DecorationImage(
-                                image: imageProvider,
-                                fit: BoxFit.cover
-                              )
-                            ),
-                          );
-                        },
-                        placeholder: (context, url) => const Loading(),
-                        errorWidget: (context, url, error) => const Icon(Icons.image_not_supported_outlined,size: 50,color: Colors.grey,),
+            return GestureDetector(
+              onTap: () {
+                Get.toNamed(NamedRoutes.singlePodcastScreen,arguments: homeScreenController.topPodcast[index]);
+              },
+              child: Padding(
+                padding: EdgeInsets.only(right: index == 0 ? bodyMargin : 15),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SizedBox(
+                        height: Get.height/5.3,
+                        width: Get.width/2.4,
+                        child: CachedNetworkImage(
+                          imageUrl: homeScreenController.topPodcast[index].poster!,
+                          imageBuilder: (context, imageProvider) {
+                            return Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(16),
+                                image: DecorationImage(
+                                  image: imageProvider,
+                                  fit: BoxFit.cover
+                                )
+                              ),
+                            );
+                          },
+                          placeholder: (context, url) => const Loading(),
+                          errorWidget: (context, url, error) => const Icon(Icons.image_not_supported_outlined,size: 50,color: Colors.grey,),
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                      width: Get.width / 2.4,
-                      child: Text(
-                        homeScreenController.topPodcast[index].title!,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 2,
-                      )),
-                ],
+                    SizedBox(
+                        width: Get.width / 2.4,
+                        child: Text(
+                          homeScreenController.topPodcast[index].title!,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 2,
+                        )),
+                  ],
+                ),
               ),
             );
           },

@@ -7,9 +7,17 @@ import 'package:tec/constant/my_colors.dart';
 import 'package:tec/gen/assets.gen.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import '../../component/dimens.dart';
+import '../../controller/podcast/single_podcast_controller.dart';
+import '../../models/podcast_model.dart';
 
 class SinglePodcastScreen extends StatelessWidget {
-  const SinglePodcastScreen({Key? key}) : super(key: key);
+
+  late SinglePodcastController singlePodcastController;
+  late PodcastModel podcastModel;
+  SinglePodcastScreen() {
+    podcastModel = Get.arguments;
+    singlePodcastController = Get.put(SinglePodcastController(id: podcastModel.id));
+  }
 
   @override
   Widget build(BuildContext context) {

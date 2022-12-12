@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: NamedRoutes.singleManageArticleScreen, page: () => SingleManageArticleScreen(),binding: ArticleManagerBinding()),
         GetPage(name: NamedRoutes.singlePodcastScreen, page: () => SinglePodcastScreen(),)
       ],
-      initialRoute: NamedRoutes.singlePodcastScreen,
+      initialRoute: NamedRoutes.mainScreen,
     );
   }
 
@@ -121,6 +121,7 @@ class MyApp extends StatelessWidget {
 }
 
 class NamedRoutes{
+  NamedRoutes._();
   static String mainScreen = "/";
   static String singleScreen = "/SingleScreen";
   static String manageArticleScreen = "/ManageArticleScreen";

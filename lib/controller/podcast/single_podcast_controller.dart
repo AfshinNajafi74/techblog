@@ -9,6 +9,12 @@ class SinglePodcastController extends GetxController{
   RxBool loading = false.obs;
   RxList<PodcastFileModel> podcastFileList = RxList();
 
+  @override
+  void onInit(){
+    super.onInit();
+    getPodcastFiles();
+  }
+
   getPodcastFiles() async{
     loading.value = true;
     var response = await DioService().getMethod(ApiUrlConstant.podcastFiles+id);
