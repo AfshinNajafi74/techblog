@@ -145,7 +145,15 @@ class SinglePodcastScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Icon(Icons.skip_next,color: Colors.white,),
+                          GestureDetector(
+                            onTap: () async {
+                              await controller.player.seekToNext();
+                            },
+                            child: Icon(
+                              Icons.skip_next,
+                              color: Colors.white,
+                            ),
+                          ),
                           GestureDetector(
                             onTap: (){
                               controller.player.playing ?
@@ -162,7 +170,15 @@ class SinglePodcastScreen extends StatelessWidget {
                               ),
                             )
                           ),
-                          Icon(Icons.skip_previous,color: Colors.white,),
+                          GestureDetector(
+                            onTap: () async {
+                              await controller.player.seekToPrevious();
+                            },
+                            child: Icon(
+                              Icons.skip_previous,
+                              color: Colors.white,
+                            ),
+                          ),
                           SizedBox(),
                           Icon(Icons.repeat,color: Colors.white,),
                         ],
