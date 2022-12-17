@@ -36,15 +36,19 @@ class SinglePodcastScreen extends StatelessWidget {
                   children: [
                     Stack(
                       children: [
-                        CachedNetworkImage(
-                          imageUrl:"https://digiato.com/wp-content/uploads/2022/12/5G-910x600.jpg",
-                          imageBuilder: (context, imageProvider) {
-                            return Image(image: imageProvider,);
-                          },
-                          placeholder: (context, url) => const Loading(),
-                          errorWidget: (context, url, error) {
-                            return Image.asset("assets/images/single_place_holder.jpg");
-                          },
+                        SizedBox(
+                          height: Get.height / 3,
+                          width: double.infinity,
+                          child: CachedNetworkImage(
+                            imageUrl: podcastModel.poster!,
+                            imageBuilder: (context, imageProvider) {
+                              return Image(image: imageProvider,fit: BoxFit.fill,);
+                            },
+                            placeholder: (context, url) => const Loading(),
+                            errorWidget: (context, url, error) {
+                              return Image.asset("assets/images/single_place_holder.jpg");
+                            },
+                          ),
                         ),
                         Positioned(
                             child: Container(
@@ -75,7 +79,7 @@ class SinglePodcastScreen extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: Align(
                           alignment: Alignment.centerRight,
-                          child: Text("title!",maxLines: 2,style: textTheme.titleLarge,)),
+                          child: Text(podcastModel.title!,maxLines: 2,style: textTheme.titleLarge,)),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -83,34 +87,38 @@ class SinglePodcastScreen extends StatelessWidget {
                         children: [
                           Image(image: Image.asset(Assets.images.profileAvatar.path,).image,height: 50,),
                           const SizedBox(width: 16,),
-                          Text("AfshinNajafi!",maxLines: 2,style: textTheme.headline4,),
+                          Text(podcastModel.publisher!,maxLines: 2,style: textTheme.headline4,),
                           const SizedBox(width: 16,),
                         ],
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: 5,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  children: [
-                                    ImageIcon(Image.asset(Assets.icons.microphon.path,color: SolidColors.seeMore,).image),
-                                    SizedBox(width: 8,),
-                                    Text("بخش چهارم : فریلنسر دیوانه",style: textTheme.headline4,)
-                                  ],
-                                ),
-                                Text("22:00")
-                              ],
-                            ),
-                          );
-                        },
+                      child: Obx(
+                        () => ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: singlePodcastController.podcastFileList.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    children: [
+                                      ImageIcon(Image.asset(Assets.icons.microphon.path,color: SolidColors.seeMore,).image),
+                                      SizedBox(width: 8,),
+                                      SizedBox(
+                                        width: Get.width / 1.5,
+                                        child: Text(singlePodcastController.podcastFileList[index].title!,style: textTheme.headline4,))
+                                    ],
+                                  ),
+                                  Text(singlePodcastController.podcastFileList[index].length!+":00")
+                                ],
+                              ),
+                            );
+                          },
+                        ),
                       ),
                     )
                   ],
