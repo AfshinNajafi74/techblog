@@ -12,11 +12,11 @@ import '../../models/podcast_model.dart';
 
 class SinglePodcastScreen extends StatelessWidget {
 
-  late SinglePodcastController singlePodcastController;
+  late SinglePodcastController controller;
   late PodcastModel podcastModel;
   SinglePodcastScreen() {
     podcastModel = Get.arguments;
-    singlePodcastController = Get.put(SinglePodcastController(id: podcastModel.id));
+    controller = Get.put(SinglePodcastController(id: podcastModel.id));
   }
 
   @override
@@ -97,7 +97,7 @@ class SinglePodcastScreen extends StatelessWidget {
                       child: Obx(
                         () => ListView.builder(
                           shrinkWrap: true,
-                          itemCount: singlePodcastController.podcastFileList.length,
+                          itemCount: controller.podcastFileList.length,
                           itemBuilder: (context, index) {
                             return Padding(
                               padding: const EdgeInsets.all(8.0),
@@ -110,10 +110,10 @@ class SinglePodcastScreen extends StatelessWidget {
                                       SizedBox(width: 8,),
                                       SizedBox(
                                         width: Get.width / 1.5,
-                                        child: Text(singlePodcastController.podcastFileList[index].title!,style: textTheme.headline4,))
+                                        child: Text(controller.podcastFileList[index].title!,style: textTheme.headline4,))
                                     ],
                                   ),
-                                  Text(singlePodcastController.podcastFileList[index].length!+":00")
+                                  Text(controller.podcastFileList[index].length!+":00")
                                 ],
                               ),
                             );
@@ -146,7 +146,22 @@ class SinglePodcastScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Icon(Icons.skip_next,color: Colors.white,),
-                          Icon(Icons.play_circle_fill,color: Colors.white,size: 48,),
+                          GestureDetector(
+                            onTap: (){
+                              controller.player.playing ?
+                              controller.player.pause() :
+                              controller.player.play();
+
+                              controller.playState.value = controller.player.playing;
+                            },
+                            child: Obx(
+                              () => Icon(
+                                controller.playState.value ?
+                                Icons.pause_circle_filled : Icons.play_circle_fill,
+                                color: Colors.white,size: 48,
+                              ),
+                            )
+                          ),
                           Icon(Icons.skip_previous,color: Colors.white,),
                           SizedBox(),
                           Icon(Icons.repeat,color: Colors.white,),
