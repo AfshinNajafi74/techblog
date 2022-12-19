@@ -99,22 +99,31 @@ class SinglePodcastScreen extends StatelessWidget {
                           shrinkWrap: true,
                           itemCount: controller.podcastFileList.length,
                           itemBuilder: (context, index) {
-                            return Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Row(
-                                    children: [
-                                      ImageIcon(Image.asset(Assets.icons.microphon.path,color: SolidColors.seeMore,).image),
-                                      SizedBox(width: 8,),
-                                      SizedBox(
-                                        width: Get.width / 1.5,
-                                        child: Text(controller.podcastFileList[index].title!,style: textTheme.headline4,))
-                                    ],
-                                  ),
-                                  Text(controller.podcastFileList[index].length!+":00")
-                                ],
+                            return GestureDetector(
+                              onTap: () async {
+                                await controller.player.seek(Duration.zero,index:index);
+                                controller.currentFileIndex.value = controller.player.currentIndex!;
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        ImageIcon(Image.asset(Assets.icons.microphon.path,color: SolidColors.seeMore,).image),
+                                        SizedBox(width: 8,),
+                                        SizedBox(
+                                          width: Get.width / 1.5,
+                                          child: Obx(
+                                            () => Text(controller.podcastFileList[index].title!,
+                                              style: controller.currentFileIndex.value == index ? textTheme.headline3 : textTheme.headline4,),
+                                          ))
+                                      ],
+                                    ),
+                                    Text(controller.podcastFileList[index].length!+":00")
+                                  ],
+                                ),
                               ),
                             );
                           },
@@ -148,6 +157,7 @@ class SinglePodcastScreen extends StatelessWidget {
                           GestureDetector(
                             onTap: () async {
                               await controller.player.seekToNext();
+                              controller.currentFileIndex.value = controller.player.currentIndex!;
                             },
                             child: Icon(
                               Icons.skip_next,
@@ -161,6 +171,7 @@ class SinglePodcastScreen extends StatelessWidget {
                               controller.player.play();
 
                               controller.playState.value = controller.player.playing;
+                              controller.currentFileIndex.value = controller.player.currentIndex!;
                             },
                             child: Obx(
                               () => Icon(
@@ -173,6 +184,7 @@ class SinglePodcastScreen extends StatelessWidget {
                           GestureDetector(
                             onTap: () async {
                               await controller.player.seekToPrevious();
+                              controller.currentFileIndex.value = controller.player.currentIndex!;
                             },
                             child: Icon(
                               Icons.skip_previous,
