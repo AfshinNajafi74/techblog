@@ -14,6 +14,7 @@ class SinglePodcastController extends GetxController{
   final player = AudioPlayer();
   late var playList;
   RxBool playState = false.obs;
+  RxBool isLoopAll = false.obs;
   RxInt currentFileIndex = 0.obs;
 
 
@@ -65,6 +66,16 @@ class SinglePodcastController extends GetxController{
         bufferedValue.value = Duration(seconds: 0);
       }
     });
+  }
+
+  setLoopMode() {
+    if(isLoopAll.value){
+      isLoopAll.value = false;
+      player.setLoopMode(LoopMode.off);
+    }else{
+      isLoopAll.value = true;
+      player.setLoopMode(LoopMode.all);
+    }
   }
 
 }

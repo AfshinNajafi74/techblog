@@ -203,13 +203,16 @@ class SinglePodcastScreen extends StatelessWidget {
                               await controller.player.seekToPrevious();
                               controller.currentFileIndex.value = controller.player.currentIndex!;
                             },
-                            child: Icon(
+                            child: const Icon(
                               Icons.skip_previous,
                               color: Colors.white,
                             ),
                           ),
-                          SizedBox(),
-                          Icon(Icons.repeat,color: Colors.white,),
+                          const SizedBox(),
+                          Obx(
+                            () => GestureDetector(
+                              onTap: () => controller.setLoopMode(),
+                              child: Icon(Icons.repeat,color: controller.isLoopAll.value ? Colors.blue : Colors.white,))),
                         ],
                       )
                     ],
