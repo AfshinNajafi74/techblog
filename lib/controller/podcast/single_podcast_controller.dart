@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:get/get.dart';
 import 'package:tec/constant/api_constant.dart';
 import 'package:tec/models/podcast_file_model.dart';
@@ -13,6 +15,7 @@ class SinglePodcastController extends GetxController{
   late var playList;
   RxBool playState = false.obs;
   RxInt currentFileIndex = 0.obs;
+
 
   @override
   void onInit() async{
@@ -37,6 +40,31 @@ class SinglePodcastController extends GetxController{
       loading.value = false;
     }
 
+  }
+
+  Rx<Duration> progressValue = Duration(seconds: 0).obs;
+  Rx<Duration> bufferedValue = Duration(seconds: 0).obs;
+  Timer? timer;
+
+  startProgress() {
+    const tick = Duration(seconds: 1);
+    int duration = player.duration!.inSeconds - player.position.inSeconds;
+    if(timer != null){
+      if(timer!.isActive){
+        timer!.cancel();
+        timer = null;
+      }
+    }
+    timer = Timer.periodic(tick, (timer) {
+      duration--;
+      progressValue.value = player.position;
+      bufferedValue.value = player.bufferedPosition;
+      if(duration >= 0){
+        timer.cancel();
+        progressValue.value = Duration(seconds: 0);
+        bufferedValue.value = Duration(seconds: 0);
+      }
+    });
   }
 
 }

@@ -9,6 +9,7 @@ import 'package:percent_indicator/percent_indicator.dart';
 import '../../component/dimens.dart';
 import '../../controller/podcast/single_podcast_controller.dart';
 import '../../models/podcast_model.dart';
+import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 
 class SinglePodcastScreen extends StatelessWidget {
 
@@ -146,10 +147,21 @@ class SinglePodcastScreen extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      LinearPercentIndicator(
-                        percent: 1.0,
-                        backgroundColor: Colors.white,
-                        progressColor: Colors.orange,
+                      Obx(
+                        () => ProgressBar(
+                          buffered: controller.bufferedValue.value,
+                          timeLabelTextStyle: TextStyle(color: Colors.white),
+                          thumbColor: Colors.yellow,
+                          baseBarColor: Colors.white,
+                          progressBarColor: Colors.orange,
+                          progress: controller.progressValue.value,
+                          total: controller.player.duration ?? Duration(seconds: 0),
+                          onSeek: (position) {
+                            controller.player.seek(position);
+                            controller.player.playing ?
+                            controller.startProgress() : controller.timer!.cancel();
+                          },
+                        ),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -166,6 +178,11 @@ class SinglePodcastScreen extends StatelessWidget {
                           ),
                           GestureDetector(
                             onTap: (){
+
+                              controller.player.playing ?
+                              controller.timer!.cancel() :
+                              controller.startProgress();
+
                               controller.player.playing ?
                               controller.player.pause() :
                               controller.player.play();
