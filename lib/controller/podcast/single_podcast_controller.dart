@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'dart:developer';
 import 'package:get/get.dart';
 import 'package:tec/constant/api_constant.dart';
 import 'package:tec/models/podcast_file_model.dart';
@@ -58,6 +58,7 @@ class SinglePodcastController extends GetxController{
     }
     timer = Timer.periodic(tick, (timer) {
       duration--;
+      log("duration $duration =====> index : ${player.currentIndex}");
       progressValue.value = player.position;
       bufferedValue.value = player.bufferedPosition;
       if(duration >= 0){
@@ -75,6 +76,12 @@ class SinglePodcastController extends GetxController{
     }else{
       isLoopAll.value = true;
       player.setLoopMode(LoopMode.all);
+    }
+  }
+
+  timerCheck() {
+    if(player.playing){
+      startProgress();
     }
   }
 
