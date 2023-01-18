@@ -104,6 +104,7 @@ class SinglePodcastScreen extends StatelessWidget {
                               onTap: () async {
                                 await controller.player.seek(Duration.zero,index:index);
                                 controller.currentFileIndex.value = controller.player.currentIndex!;
+                                controller.timerCheck();
                               },
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
@@ -135,6 +136,7 @@ class SinglePodcastScreen extends StatelessWidget {
                 ),
               )
             ),
+            /// player manager
             Positioned(
               bottom: 8,
               right: Dimens.bodyMargin,
@@ -156,10 +158,15 @@ class SinglePodcastScreen extends StatelessWidget {
                           progressBarColor: Colors.orange,
                           progress: controller.progressValue.value,
                           total: controller.player.duration ?? Duration(seconds: 0),
-                          onSeek: (position) {
+                          onSeek: (position) async {
                             controller.player.seek(position);
-                            controller.player.playing ?
-                            controller.startProgress() : controller.timer!.cancel();
+                            if(controller.player.playing){
+                              controller.startProgress();
+                            }else if(position <= Duration(seconds: 0)) {
+                              await controller.player.seekToNext();
+                              controller.currentFileIndex.value = controller.player.currentIndex!;
+                              controller.timerCheck();
+                            }
                           },
                         ),
                       ),
