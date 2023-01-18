@@ -7,9 +7,7 @@ import 'package:tec/constant/my_strings.dart';
 import 'package:tec/controller/home_screen_controller.dart';
 import 'package:tec/controller/articles/single_article_controller.dart';
 import 'package:tec/view/articles/article_list_screen.dart';
-
-import '../../main.dart';
-import '../podcast/single_podcast_screen.dart';
+import 'package:tec/route_manager/names.dart';
 
 
 class HomeScreen extends StatelessWidget {

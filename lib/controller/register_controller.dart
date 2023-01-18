@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:tec/constant/api_constant.dart';
 import 'package:tec/constant/storage_const.dart';
-import 'package:tec/main.dart';
+import 'package:tec/route_manager/names.dart';
 import 'package:tec/services/dio_service.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:tec/view/main_screen/main_screen.dart';

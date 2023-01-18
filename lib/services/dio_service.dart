@@ -8,10 +8,11 @@ class DioService {
   final Dio _dio = Dio();
 
   Future<dynamic> getMethod(String url) async{
-    _dio.options.headers['content-Type'] = 'application/json';
+    // _dio.options.headers['content-Type'] = 'application/json';
     return await _dio.get(
         url,
-      options: Options(responseType: ResponseType.json,method: 'GET')
+      options: Options(
+        responseType: ResponseType.json,method: 'GET')
     ).then((response) {
       log(response.toString());
       return response;

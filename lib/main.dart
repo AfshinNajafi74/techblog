@@ -2,14 +2,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:tec/binding.dart';
-import 'package:tec/constant/my_colors.dart';
-import 'package:tec/view/articles/manage_article_screen.dart';
-import 'package:tec/view/articles/single_manage_article_screen.dart';
-import 'package:tec/view/main_screen/main_screen.dart';
-import 'package:tec/view/articles/single_screen.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:tec/view/podcast/single_podcast_screen.dart';
+import 'package:tec/constant/my_colors.dart';
+import 'package:tec/route_manager/names.dart';
+import 'package:tec/route_manager/pages.dart';
 import 'my_http_overrides.dart';
 
 void main() async {
@@ -32,17 +28,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     var textTheme = Theme.of(context).textTheme;
     return GetMaterialApp(
+      initialRoute: NamedRoutes.initialRoute,
       locale: const Locale('fa'),
       theme: lightTheme(textTheme),
       debugShowCheckedModeBanner: false,
-      getPages: [
-        GetPage(name: NamedRoutes.mainScreen, page: () => MainScreen(),binding: RegisterBinding()),
-        GetPage(name: NamedRoutes.singleScreen, page: () => SingleScreen(),binding: ArticleBinding()),
-        GetPage(name: NamedRoutes.manageArticleScreen, page: () => ManageArticleScreen(),binding: ArticleManagerBinding()),
-        GetPage(name: NamedRoutes.singleManageArticleScreen, page: () => SingleManageArticleScreen(),binding: ArticleManagerBinding()),
-        GetPage(name: NamedRoutes.singlePodcastScreen, page: () => SinglePodcastScreen(),)
-      ],
-      initialRoute: NamedRoutes.mainScreen,
+      getPages:Pages.pages,
     );
   }
 
@@ -120,12 +110,3 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class NamedRoutes{
-  NamedRoutes._();
-  static String mainScreen = "/";
-  static String singleScreen = "/SingleScreen";
-  static String manageArticleScreen = "/ManageArticleScreen";
-  static String singleManageArticleScreen = "/SingleManageArticleScreen";
-  static String singlePodcastScreen = "/SinglePodcastScreen";
-
-}
